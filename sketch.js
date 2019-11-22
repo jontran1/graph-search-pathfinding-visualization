@@ -2,11 +2,6 @@ var cols, rows;
 var w = 10;
 var grid = [];
 
-// Current cell visited
-var current;
-
-var stack = [];
-
 function setup(){
     createCanvas(400,400);
     cols = floor(width/w);
@@ -15,12 +10,13 @@ function setup(){
     for(var j = 0; j < rows; j++){
         for(var i = 0; i < cols; i++){
             var cell = new Cell(i, j);
+            // if(i == 0 || j == cols-1 || i == cols-1 || j == 0){
+            //     cell.isWall=true;
+            // }
             grid.push(cell);
         }
     }
-
     current = grid[0];
-
 }
 
 function draw(){
@@ -28,47 +24,12 @@ function draw(){
     for(var i = 0; i < grid.length; i++){
         grid[i].show();
     }
-    current.visited = true;
-    current.highlight();
-    // Step 1
-    var next = current.checkNeightbors();
-    if(next){
-        next.visited = true;
-        // Step 2
-        stack.push(current);
-        // Step 3
-        removeWalls(current, next);
-        // Step 4 
-        current = next;
-    }else if(stack.length > 0) {
-        current = stack.pop();
-    }
+    depthFirstRecursiveBacktracking();
 }
 
-function index(i, j){
-    if(i < 0 || j < 0 || i > cols-1 || j > rows-1){
-        return -1;
+function mouseClicked(){
+    let index = mouseIndex(mouseX, mouseY);
+    if(index >= 0) {
+        grid[index].isWall = !grid[index].isWall;
     }
-    return i + j * cols;
-}
-
-
-function removeWalls(a, b){
-    var x = a.i - b.i;
-    if(x === 1){
-        a.walls[3] = false;
-        b.walls[1] = false;
-    }else if(x === -1){
-        a.walls[1] = false;
-        b.walls[3] = false;
-    }
-    var y = a.j - b.j;
-    if(y === 1){
-        a.walls[0] = false;
-        b.walls[2] = false;
-    }else if(y === -1){
-        a.walls[2] = false;
-        b.walls[0] = false;
-    }
-
 }

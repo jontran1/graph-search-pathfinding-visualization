@@ -1,32 +1,53 @@
-
 // Constructor for Cell object 
 function Cell(i, j){
     this.i = i;
     this.j = j;
     // top, right, bottom, left
-    this.walls = [true, true, true, true];
-    this.visited = false;
+    this.isWall = true;//Math.random()>=0.5;
+
+    this.show = function(){
+        var x = this.i*w;
+        var y = this.j*w;
+        
+        if(this.isWall){
+            fill(0);
+            rect(x,y,w,w);
+        }else{
+            fill(color(255, 255, 255));
+            rect(x,y,w,w);
+        }
+        // Draw lines. Stroke(0) is the color.
+        stroke(color(0, 0, 0));
+        line(x, y, x + w, y);
+        line(x+w, y, x+w, y+w);
+        line(x+w, y+w, x, y+w);
+        line(x, y+w, x, y);
+    }
+
+    this.makeWall = function(){
+        this.wall = !this.wall;
+    }
 
     this.checkNeightbors = function(){
         var neightbors = [];
         
-        var top = grid[index(i, j-1)];
-        var right = grid[index(i+1, j)];
-        var bottom = grid[index(i, j+1)];
-        var left = grid[index(i-1,j)];
-
-        if(top && !top.visited){
+        var top = grid[index(i,j-2)];
+        var right = grid[index(i+2, j)];
+        var bottom = grid[index(i, j+2)];
+        var left = grid[index(i-2, j)];
+        if(top && top.isWall){
             neightbors.push(top);
         }
-        if(right && !right.visited){
+        if(right && right.isWall){
             neightbors.push(right);
+
         }
-        if(bottom && !bottom.visited){
+        if(bottom && bottom.isWall){
             neightbors.push(bottom);
         }
-        if(left && !left.visited){
+        if(left && left.isWall){
             neightbors.push(left);
-        }  
+        }
         if(neightbors.length > 0){
             var r = floor(random(0, neightbors.length));
             return neightbors[r];
@@ -34,38 +55,29 @@ function Cell(i, j){
             return undefined;
         }
     }
-    this.highlight = function(){
-        var x = this.i*w;
-        var y = this.j*w;
-        noStroke();
-        fill(0, 0, 255, 100);
-        rect(x, y, w, w);
+}
 
+
+function mouseIndex(mouseCorX, mouseCorY){
+    let i = 0;
+    let j = 0;
+    let pixelX = 0;
+    let pixelY = 0;
+    while(pixelX < mouseCorX){
+        pixelX += w;
+        i++;
     }
-
-    stroke(255);
-    this.show = function(){
-        var x = this.i*w;
-        var y = this.j*w;
-        stroke(255);
-        if(this.walls[0]){
-            line(x, y, x + w, y);
-        }
-        if(this.walls[1]){
-            line(x+w, y, x+w, y+w);
-        }
-        if(this.walls[2]){
-            line(x+w, y+w, x, y+w);
-        }
-        if(this.walls[3]){
-            line(x, y+w, x, y);
-        }
-        
-        if(this.visited){
-            noStroke();
-            fill(255, 0, 255, 100);
-            rect(x,y,w,w);
-        }
-
+    while(pixelY < mouseCorY){
+        pixelY += w;
+        j++;
     }
+    return index(i-1, j-1);
+
+}
+
+function index(i, j){
+    if(i < 0 || j < 0 || i > cols-1 || j > rows-1){
+        return -1;
+    }
+    return i + j * cols;
 }
