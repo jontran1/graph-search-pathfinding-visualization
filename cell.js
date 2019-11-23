@@ -4,6 +4,7 @@ function Cell(i, j){
     this.j = j;
     this.isWall = true;//Math.random()>=0.5;
     this.startingCell = false;
+    this.visited = false;
 
     this.show = function(){
         var x = this.i*w;
@@ -30,24 +31,23 @@ function Cell(i, j){
         this.wall = !this.wall;
     }
 
-    this.checkNeightbors = function(){
+    this.adjacentCells = function(){
         var neightbors = [];
         
-        var top = grid[index(i,j-2)];
-        var right = grid[index(i+2, j)];
-        var bottom = grid[index(i, j+2)];
-        var left = grid[index(i-2, j)];
-        if(top && top.isWall){
+        var top = grid[index(i,j-1)];
+        var right = grid[index(i+1, j)];
+        var bottom = grid[index(i, j+1)];
+        var left = grid[index(i-1, j)];
+        if(top && !top.isWall){
             neightbors.push(top);
         }
-        if(right && right.isWall){
+        if(right && !right.isWall){
             neightbors.push(right);
-
         }
-        if(bottom && bottom.isWall){
+        if(bottom && !bottom.isWall){
             neightbors.push(bottom);
         }
-        if(left && left.isWall){
+        if(left && !left.isWall){
             neightbors.push(left);
         }
         if(neightbors.length > 0){
