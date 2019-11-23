@@ -1,5 +1,5 @@
 var cols, rows;
-var w = 20;
+var w = 40;
 var grid = [];
 
 function setup(){
@@ -13,6 +13,7 @@ function setup(){
             grid.push(cell);
         }
     }
+    grid[index(1,1)].startingCell = true;
     makeMazeButton = createButton("Make Maze");
     makeMazeButton.mousePressed(depthFirstRecursiveBacktracking);
 }
@@ -21,7 +22,6 @@ function draw(){
     for(var i = 0; i < grid.length; i++){
         grid[i].show();
     }
-
 }
 
 function mouseClicked(){

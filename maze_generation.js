@@ -1,13 +1,13 @@
 var stack = [];
 
 function depthFirstRecursiveBacktracking(){
-    wallGrid();
-    current = grid[Math.floor(Math.random()*grid.length)];
+    blackOutGrid();
+    current = grid[index(1,1)];
     stack.push(current);
     while(stack.length != 0){
         current.isWall = false;
         // Step 1
-        var next = current.checkNeightbors();
+        var next = checkNeightbors(current);
         if(next){
             next.isWall = false;
             // Step 2
@@ -20,7 +20,6 @@ function depthFirstRecursiveBacktracking(){
             current = stack.pop();
         }
     }
-
 }
 
 function removeWalls(a, b){
@@ -39,8 +38,42 @@ function removeWalls(a, b){
     }
 }
 
-function wallGrid(){
+checkNeightbors = function(cell){
+    var neightbors = [];
+    
+    var top = grid[index(cell.i,cell.j-2)];
+    var right = grid[index(cell.i+2, cell.j)];
+    var bottom = grid[index(cell.i, cell.j+2)];
+    var left = grid[index(cell.i-2, cell.j)];
+    if(top && top.isWall){
+        neightbors.push(top);
+    }
+    if(right && right.isWall){
+        neightbors.push(right);
+
+    }
+    if(bottom && bottom.isWall){
+        neightbors.push(bottom);
+    }
+    if(left && left.isWall){
+        neightbors.push(left);
+    }
+    if(neightbors.length > 0){
+        var r = floor(random(0, neightbors.length));
+        return neightbors[r];
+    }else {
+        return undefined;
+    }
+}
+
+function blackOutGrid(){
     for(var i = 0; i < grid.length; i++){
         grid[i].isWall = true;
+    }
+}
+
+function whiteOutGrid(){
+    for(var i = 0; i < grid.length; i++){
+        grid[i].isWall = false;
     }
 }

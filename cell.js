@@ -2,14 +2,16 @@
 function Cell(i, j){
     this.i = i;
     this.j = j;
-    // top, right, bottom, left
     this.isWall = true;//Math.random()>=0.5;
+    this.startingCell = false;
 
     this.show = function(){
         var x = this.i*w;
         var y = this.j*w;
-        
-        if(this.isWall){
+        if(this.startingCell){
+            fill(0,255,0);
+            rect(x,y,w,w);
+        }else if(this.isWall){
             fill(0);
             rect(x,y,w,w);
         }else{
@@ -76,7 +78,7 @@ function mouseIndex(mouseCorX, mouseCorY){
 }
 
 function index(i, j){
-    if(i < 0 || j < 0 || i > cols-1 || j > rows-1){
+    if(i < 1 || j < 1 || i >= cols-1 || j >= rows-1){
         return -1;
     }
     return i + j * cols;
