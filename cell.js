@@ -4,10 +4,12 @@ function Cell(i, j){
     this.j = j;
     this.isWall = true;//Math.random()>=0.5;
     this.visited = false;
-
+    this.start = false;
+    this.target = false;
+    var x = this.i*w;
+    var y = this.j*w;
     this.show = function(){
-        var x = this.i*w;
-        var y = this.j*w;
+
         if(this.visited){
             fill(0,255,0);
             rect(x,y,w,w);
@@ -55,6 +57,12 @@ function Cell(i, j){
         }else {
             return undefined;
         }
+    }
+
+    this.highlight = function(){
+        console.log("Highlighted");
+        fill(255,0,255);
+        rect(x,y,w,w);
     }
 }
 

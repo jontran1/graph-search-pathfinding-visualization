@@ -1,30 +1,13 @@
-function depthFirstSearchPathFinding(){
-    DFSiter(startingCell, grid);
-}
-
-function DFS(cell){
-    cell.visited = true;
-    var next = cell.adjacentCells();
-    if(next && !next.visited){
-        DFS(next, grid);
-
-        if(next == targetCell){
-            console.log("Target found");
-            console.log(targetCell);
-            return;
-        }
-    }
-    return;
-}
-
-function DFSiter(cell){
-    let stack = [];
-    stack.push(cell);
-    while(stack.length > 0){
+function DFSiter(){
+    if(stack.length > 0){
         current = stack.pop();
+        current.highlight();
         if(current == targetCell){
             current.visited = true;
-            return;
+            // Fills in the color red at target.
+            fill(255,0,0);
+            rect(current.i*w,current.j*w,w,w);
+            noLoop();
         }
         if(!current.visited){
             current.visited = true;
@@ -36,5 +19,4 @@ function DFSiter(cell){
             }
         }
     }
-
 }

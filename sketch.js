@@ -1,13 +1,15 @@
 var cols, rows;
-var w = 5;
+var w = 10;
 var grid = [];
 var startingCell;
 var targetCell;
+var stack = [];
+
 function setup(){
     createCanvas(400,400);
     cols = floor(width/w);
     rows = floor(height/w);
-    frameRate(1);
+    //frameRate(30);
     for(var j = 0; j < rows; j++){
         for(var i = 0; i < cols; i++){
             var cell = new Cell(i, j);
@@ -17,17 +19,20 @@ function setup(){
     grid[index(1,1)].path = true;
     startingCell = grid[index(1,1)];
     targetCell = grid[index(rows-3,cols-3)];
-    makeMazeButton = createButton("Make Maze");
-    makeMazeButton.mousePressed(depthFirstRecursiveBacktracking);
+    // makeMazeButton = createButton("Make Maze");
+    // makeMazeButton.mousePressed(depthFirstRecursiveBacktracking);
 
-    dfsButton = createButton("DFS");
-    dfsButton.mousePressed(depthFirstSearchPathFinding);
+    // dfsButton = createButton("DFS");
+    // dfsButton.mousePressed(depthFirstSearchPathFinding);
+    depthFirstRecursiveBacktracking();
+    stack.push(startingCell);
 }
 
 function draw(){
     for(var i = 0; i < grid.length; i++){
         grid[i].show();
     }
+    DFSiter();
 }
 
 function mouseClicked(){
