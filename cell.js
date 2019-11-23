@@ -3,13 +3,12 @@ function Cell(i, j){
     this.i = i;
     this.j = j;
     this.isWall = true;//Math.random()>=0.5;
-    this.startingCell = false;
     this.visited = false;
 
     this.show = function(){
         var x = this.i*w;
         var y = this.j*w;
-        if(this.startingCell){
+        if(this.visited){
             fill(0,255,0);
             rect(x,y,w,w);
         }else if(this.isWall){
@@ -32,27 +31,27 @@ function Cell(i, j){
     }
 
     this.adjacentCells = function(){
-        var neightbors = [];
+        let neightbors = [];
         
-        var top = grid[index(i,j-1)];
-        var right = grid[index(i+1, j)];
-        var bottom = grid[index(i, j+1)];
-        var left = grid[index(i-1, j)];
-        if(top && !top.isWall){
+        let top = grid[index(i,j-1)];
+        let right = grid[index(i+1, j)];
+        let bottom = grid[index(i, j+1)];
+        let left = grid[index(i-1, j)];
+        if(top && !top.isWall && !top.visited){
             neightbors.push(top);
         }
-        if(right && !right.isWall){
+        if(right && !right.isWall && !right.visited){
             neightbors.push(right);
         }
-        if(bottom && !bottom.isWall){
+        if(bottom && !bottom.isWall && !bottom.visited){
             neightbors.push(bottom);
         }
-        if(left && !left.isWall){
+        if(left && !left.isWall && !left.visited){
             neightbors.push(left);
         }
         if(neightbors.length > 0){
             var r = floor(random(0, neightbors.length));
-            return neightbors[r];
+            return neightbors;
         }else {
             return undefined;
         }
