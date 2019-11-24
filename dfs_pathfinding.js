@@ -1,16 +1,26 @@
-function DFSiter(){
+let stack = [];
+let visited = [];
+
+function depthFirstSearchPathFinding(){
+    playDFSAnimation = true;
+    startCell = grid[index(1,1)];
+    targetCell = grid[index(w/2,w/2)];
+    targetCell.red = true;
+    stack.push(startCell);
+}
+function DFSiter(targetCell){
     if(stack.length > 0){
         current = stack.pop();
-        current.highlight();
+        current.highlightCell();
+
+        current.green = true;
         if(current == targetCell){
-            current.visited = true;
-            // Fills in the color red at target.
-            fill(255,0,0);
-            rect(current.i*w,current.j*w,w,w);
+            visited.push(current);
             noLoop();
+            playDFSAnimation = false;
         }
-        if(!current.visited){
-            current.visited = true;
+        if(!visited.includes(current)){
+            visited.push(current);
             adjacentCells = current.adjacentCells();
             if(adjacentCells){
                 for(let i = 0; i < adjacentCells.length; i++){

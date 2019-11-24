@@ -4,28 +4,29 @@ function Cell(i, j){
     this.j = j;
     this.isWall = true;//Math.random()>=0.5;
     this.visited = false;
-    this.start = false;
-    this.target = false;
+    this.green = false;
+    this.red = false;
+
     var x = this.i*w;
     var y = this.j*w;
     this.show = function(){
-
-        if(this.visited){
-            fill(0,255,0);
-            rect(x,y,w,w);
+        if(this.green){
+            this.turnCellGreen();
+        }else if(this.red){
+            this.turnCellRed();
         }else if(this.isWall){
             fill(0);
-            rect(x,y,w,w);
+            rect(x,y,w+2,w+2);
         }else{
             fill(color(255, 255, 255));
             rect(x,y,w,w);
         }
-        // Draw lines. Stroke(0) is the color.
-        stroke(color(0, 0, 0));
-        line(x, y, x + w, y);
-        line(x+w, y, x+w, y+w);
-        line(x+w, y+w, x, y+w);
-        line(x, y+w, x, y);
+        // // Draw lines. Stroke(0) is the color.
+        // stroke(color(0, 0, 0));
+        // line(x, y, x + w, y);
+        // line(x+w, y, x+w, y+w);
+        // line(x+w, y+w, x, y+w);
+        // line(x, y+w, x, y);
     }
 
     this.makeWall = function(){
@@ -59,11 +60,21 @@ function Cell(i, j){
         }
     }
 
-    this.highlight = function(){
-        console.log("Highlighted");
+    this.turnCellRed = function(){
+        fill(255,0,0);
+        rect(x,y,w,w);      
+    }
+    
+    this.highlightCell = function(){
         fill(255,0,255);
+        rect(x,y,w,w);  
+    }
+
+    this.turnCellGreen = function(){
+        fill(0,255,0);
         rect(x,y,w,w);
     }
+
 }
 
 

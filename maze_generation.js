@@ -1,7 +1,7 @@
-var stack = [];
-
 function depthFirstRecursiveBacktracking(){
     blackOutGrid();
+
+    let stack = [];
     current = grid[index(1,1)];
     stack.push(current);
     while(stack.length != 0){
