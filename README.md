@@ -6,5 +6,5 @@
 
 
 
-![dfps_pathfinding](./images_and_gifs\dfps_pathfinding.gif)
+![dfps_pathfinding](./images_and_gifs/dfps_pathfinding.gif)
 
