@@ -4,7 +4,7 @@ let visited = [];
 function depthFirstSearchPathFinding(){
     playDFSAnimation = true;
     startCell = grid[index(1,1)];
-    targetCell = grid[index(w/2,w/2)];
+    targetCell = grid[index(rows-3,cols-3)];
     targetCell.red = true;
     stack.push(startCell);
 }
