@@ -3,7 +3,6 @@ function Cell(i, j){
     this.i = i;
     this.j = j;
     this.isWall = true;//Math.random()>=0.5;
-    this.visited = false;
     this.green = false;
     this.red = false;
 
@@ -40,16 +39,16 @@ function Cell(i, j){
         let right = grid[index(i+1, j)];
         let bottom = grid[index(i, j+1)];
         let left = grid[index(i-1, j)];
-        if(top && !top.isWall && !top.visited){
+        if(top && !top.isWall){
             neightbors.push(top);
         }
-        if(right && !right.isWall && !right.visited){
+        if(right && !right.isWall){
             neightbors.push(right);
         }
-        if(bottom && !bottom.isWall && !bottom.visited){
+        if(bottom && !bottom.isWall){
             neightbors.push(bottom);
         }
-        if(left && !left.isWall && !left.visited){
+        if(left && !left.isWall){
             neightbors.push(left);
         }
         if(neightbors.length > 0){
