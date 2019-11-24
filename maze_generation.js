@@ -25,6 +25,7 @@ function depthFirstRecursiveBacktracking(){
             current = MazeStack.pop();
         }
     }else {
+        console.log("Maze generation finished!");
         playMazeGenerationAnimation = false;
     }
 }
@@ -66,7 +67,7 @@ checkNeightbors = function(cell){
         neightbors.push(left);
     }
     if(neightbors.length > 0){
-        var r = floor(random(0, neightbors.length));
+        let r = floor(random(0, neightbors.length));
         return neightbors[r];
     }else {
         return undefined;
@@ -74,13 +75,15 @@ checkNeightbors = function(cell){
 }
 
 function blackOutGrid(){
-    for(var i = 0; i < grid.length; i++){
+    for(let i = 0; i < grid.length; i++){
         grid[i].isWall = true;
     }
 }
 
-function whiteOutGrid(){
-    for(var i = 0; i < grid.length; i++){
+function resetGrid(){
+    for(let i = 0; i < grid.length; i++){
         grid[i].isWall = false;
+        grid[i].green = false;
+        grid[i].red = false;
     }
 }

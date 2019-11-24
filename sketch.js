@@ -11,14 +11,12 @@ function setup(){
     createCanvas(400,400);
     cols = floor(width/w);
     rows = floor(height/w);
-    //frameRate(20);
     for(var j = 0; j < rows; j++){
         for(var i = 0; i < cols; i++){
             var cell = new Cell(i, j);
             grid.push(cell);
         }
     }
-    whiteOutGrid();
     makeMazeButton = createButton("Make Maze");
     makeMazeButton.mousePressed(activateMazeGenerationDFS);
 
@@ -27,6 +25,9 @@ function setup(){
 
     bfsButton = createButton("BFS");
     bfsButton.mousePressed(breadthFirstSearchPathFinding);
+
+    resetButton = createButton("Reset");
+    resetButton.mousePressed(reset);
 }
 
 function draw(){
@@ -34,15 +35,15 @@ function draw(){
         grid[i].show();
     }
     if(playMazeGenerationAnimation){
-        playDFSAnimation = false;
         depthFirstRecursiveBacktracking();
     }
     if(playDFSAnimation){
-        DFSiter(targetCell);
+        DFSiter();
     }
     if(playBFSAnimation){
-        BFSiter(targetCell);
+        BFSiter();
     }
+    console.log(grid[mouseIndex(mouseX, mouseY)]);
 }
 
 function mouseClicked(){
@@ -58,3 +59,13 @@ function mouseDragged(){
         grid[index].isWall = !grid[index].isWall;
     }
 }
+
+function reset(){
+    playDFSAnimation = false;
+    playBFSAnimation = false;
+    playMazeGenerationAnimation = false;
+    resetGrid();
+    loop();
+}
+
+
