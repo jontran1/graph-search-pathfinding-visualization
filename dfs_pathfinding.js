@@ -12,7 +12,6 @@ function DFSiter(targetCell){
     if(stack.length > 0){
         current = stack.pop();
         current.highlightCell();
-
         current.green = true;
         if(current == targetCell){
             visited.push(current);

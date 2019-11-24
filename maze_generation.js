@@ -1,24 +1,31 @@
-function depthFirstRecursiveBacktracking(){
-    blackOutGrid();
+let MazeStack = [];
 
-    let stack = [];
+function activateMazeGenerationDFS(){
+    playMazeGenerationAnimation = true;
+    blackOutGrid();
     current = grid[index(1,1)];
-    stack.push(current);
-    while(stack.length != 0){
+    MazeStack.push(current);
+
+}
+
+function depthFirstRecursiveBacktracking(){
+    if(MazeStack.length != 0){
         current.isWall = false;
         // Step 1
         var next = checkNeightbors(current);
         if(next){
             next.isWall = false;
             // Step 2
-            stack.push(current);
+            MazeStack.push(current);
             // Step 3
             removeWalls(current, next);
             // Step 4 
             current = next;
-        }else if(stack.length > 0) {
-            current = stack.pop();
+        }else if(MazeStack.length > 0) {
+            current = MazeStack.pop();
         }
+    }else {
+        playMazeGenerationAnimation = false;
     }
 }
 
