@@ -10,5 +10,14 @@
 
 ![maze_generation](./images_and_gifs/maze_generation.gif)
 
-![dfps_pathfinding](./images_and_gifs/dfps_pathfinding.gif)
+#### DFS
 
+![dfps_pathfinding](./images_and_gifs/dfs.gif)
+
+#### Breadth First Search
+
+![bfs](./images_and_gifs/bfs.gif)
+
+#### I plan on adding some interactivity
+
+![interactivity](./images_and_gifs/interactivity.gif)
