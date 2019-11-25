@@ -6,6 +6,9 @@ var targetCell;
 var playDFSAnimation = false;
 var playBFSAnimation = false;
 var playMazeGenerationAnimation = false;
+let stack;
+let visited;
+let queue;  
 
 function setup(){
     createCanvas(400,400);
@@ -31,19 +34,22 @@ function setup(){
 }
 
 function draw(){
+    console.log(grid[mouseIndex(mouseX, mouseY)]);
     for(var i = 0; i < grid.length; i++){
         grid[i].show();
     }
     if(playMazeGenerationAnimation){
         depthFirstRecursiveBacktracking();
+        return;
     }
     if(playDFSAnimation){
         DFSiter();
+        return;
     }
     if(playBFSAnimation){
         BFSiter();
+        return;
     }
-    console.log(grid[mouseIndex(mouseX, mouseY)]);
 }
 
 function mouseClicked(){
@@ -60,12 +66,21 @@ function mouseDragged(){
     }
 }
 
+function setupStartAndTarget(){
+    startCell = grid[index(1,1)];
+    targetCell = grid[index(rows-3,cols-3)];
+}
+
 function reset(){
     playDFSAnimation = false;
     playBFSAnimation = false;
     playMazeGenerationAnimation = false;
     resetGrid();
     loop();
+}
+
+Array.min = function(array){
+    return Math.min.apply(Math, array);
 }
 
 

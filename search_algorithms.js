@@ -1,13 +1,8 @@
 
-var stack;
-var visited;
-var queue;  
-
 function depthFirstSearchPathFinding(){
     visited = []; stack = [];
     playDFSAnimation = true;
-    startCell = grid[index(1,1)];
-    targetCell = grid[index(rows-3,cols-3)];
+    setupStartAndTarget();
     targetCell.red = true;
     stack.push(startCell);
 }
@@ -37,16 +32,15 @@ function DFSiter(){
 
 function breadthFirstSearchPathFinding(){
     visited = []; stack = [];
-    queue = new Queue(w*w);
+    queue = new Queue(rows*cols);
     playBFSAnimation = true;
-    startCell = grid[index(1,1)];
-    targetCell = grid[index(rows-3,cols-3)];
+    setupStartAndTarget();
     queue.enqueue(startCell); 
     targetCell.red = true;
 }
 
 function BFSiter(){
-    if(queue.container.length > 0){
+    if(!queue.isEmpty()){
         current = queue.dequeue();
         current.highlightCell();
         current.green = true;

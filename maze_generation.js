@@ -1,6 +1,7 @@
-let MazeStack = [];
+let MazeStack;
 
 function activateMazeGenerationDFS(){
+    MazeStack = [];
     playMazeGenerationAnimation = true;
     blackOutGrid();
     current = grid[index(1,1)];
