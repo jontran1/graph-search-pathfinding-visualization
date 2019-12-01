@@ -11,9 +11,11 @@ function Cell(i, j){
     this.show = function(){
         if(this.green){
             this.turnCellGreen();
+            this.isWall=false;
             return;
         }else if(this.red){
             this.turnCellRed();
+            this.isWall=false;
             return;
         }else if(this.isWall){
             fill(0);
@@ -28,6 +30,12 @@ function Cell(i, j){
         // line(x+w, y, x+w, y+w);
         // line(x+w, y+w, x, y+w);
         // line(x, y+w, x, y);
+    }
+
+    this.resetCell = function(){
+        this.isWall = false;
+        this.green = false;
+        this.red = false;
     }
     
     this.adjacentCells = function(){

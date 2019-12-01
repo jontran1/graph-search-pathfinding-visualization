@@ -2,7 +2,6 @@
 function depthFirstSearchPathFinding(){
     visited = []; stack = [];
     playDFSAnimation = true;
-    setupStartAndTarget();
     targetCell.red = true;
     stack.push(startCell);
 }
@@ -34,7 +33,6 @@ function breadthFirstSearchPathFinding(){
     visited = []; stack = [];
     queue = new Queue(rows*cols);
     playBFSAnimation = true;
-    setupStartAndTarget();
     queue.enqueue(startCell); 
     targetCell.red = true;
 }

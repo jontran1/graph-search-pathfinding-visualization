@@ -2,7 +2,6 @@ let dist;
 let prev;
 let qSet;
 function dijkstra_setup(){
-    setupStartAndTarget();
     dist = {}; prev = {}; q = []; qSet = [];
 
     for(let i = 0; i < grid.length; i++){
