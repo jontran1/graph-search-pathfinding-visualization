@@ -27,6 +27,7 @@ function depthFirstRecursiveBacktracking(){
         }
     }else {
         console.log("Maze generation finished!");
+        setupStartAndTarget();
         playMazeGenerationAnimation = false;
     }
 }
@@ -77,14 +78,13 @@ checkNeightbors = function(cell){
 
 function blackOutGrid(){
     for(let i = 0; i < grid.length; i++){
+        grid[i].resetCell();
         grid[i].isWall = true;
     }
 }
 
 function resetGrid(){
     for(let i = 0; i < grid.length; i++){
-        grid[i].isWall = false;
-        grid[i].green = false;
-        grid[i].red = false;
+        grid[i].resetCell();
     }
 }

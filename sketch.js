@@ -1,7 +1,7 @@
 var cols, rows;
 var w = 10;
 var grid = [];
-var start;
+var startCell;
 var targetCell;
 var playDFSAnimation = false;
 var playBFSAnimation = false;
@@ -20,7 +20,7 @@ function setup(){
     createCanvas(400,400);
     cols = floor(width/w);
     rows = floor(height/w);
-    frameRate(20);
+    //frameRate(20);
     for(var j = 0; j < rows; j++){
         for(var i = 0; i < cols; i++){
             var cell = new Cell(i, j);
@@ -74,7 +74,9 @@ function mouseClicked(){
 
 function mouseDragged(){
     let index = mouseIndex(mouseX, mouseY);
-    if(index < 0){return;}
+    if(index < 0){
+        return;
+    }
     if(grid[index].isWall){
         return;
     }
@@ -119,6 +121,9 @@ function mouseReleased() {
   
 
 function setupStartAndTarget(){
+    if(startCell){startCell.resetCell();}
+    if(targetCell){targetCell.resetCell();}
+
     startCell = grid[index(1,1)];
     startCell.green = true;
     targetCell = grid[index(rows-3,cols-3)];
