@@ -20,7 +20,7 @@ function setup(){
     createCanvas(400,400);
     cols = floor(width/w);
     rows = floor(height/w);
-    //frameRate(20);
+    frameRate(20);
     for(var j = 0; j < rows; j++){
         for(var i = 0; i < cols; i++){
             var cell = new Cell(i, j);
@@ -43,7 +43,7 @@ function setup(){
 }
 
 function draw(){
-    console.log(grid[mouseIndex(mouseX, mouseY)]);
+    //console.log(grid[mouseIndex(mouseX, mouseY)]);
 
     for(var i = 0; i < grid.length; i++){
         grid[i].show();
@@ -60,6 +60,7 @@ function draw(){
         BFSiter();
         return;
     }
+    dijkstra_setup();
 }
 
 function mouseClicked(){
@@ -80,11 +81,11 @@ function mouseDragged(){
     if(grid[index].isWall){
         return;
     }
-    if(draggingTarget){
+    if(draggingTarget && grid[index] != startCell){
         setCell(targetCell);
         return;
     }
-    if(draggingStartingCell){
+    if(draggingStartingCell && grid[index] != targetCell){
         setCell(startCell);
         return;
     }
