@@ -42,6 +42,10 @@ function setup(){
     setupStartAndTarget();
 }
 
+/**
+ * Continously is called by p5.js to constantly update the user
+ * on what is happening on screen. 
+ */
 function draw(){
     //console.log(grid[mouseIndex(mouseX, mouseY)]);
 
@@ -63,6 +67,11 @@ function draw(){
     dijkstra_setup();
 }
 
+/**
+ * Black outs the cell. Making the cell inaccessible.
+ * If the user clicks on a start cell or target, the function simply
+ * returns. 
+ */
 function mouseClicked(){
     let index = mouseIndex(mouseX, mouseY);
     if(index >= 0) {
@@ -93,7 +102,10 @@ function mouseDragged(){
     
 }
 
-
+/**
+ * Everytime the user's performs a mouse click hold on a cell.
+ * 
+ */
 function mousePressed(){
     if(mouseIsOnTarget()){
         draggingTarget = true;

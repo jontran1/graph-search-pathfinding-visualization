@@ -1,5 +1,6 @@
 // Constructor for Cell object 
 function Cell(i, j){
+
     this.i = i;
     this.j = j;
     this.isWall = false;
@@ -8,6 +9,10 @@ function Cell(i, j){
 
     var x = this.i*w;
     var y = this.j*w;
+
+    /**
+     * Displays the cell's current status. 
+     */
     this.show = function(){
         if(this.green){
             this.turnCellGreen();
@@ -24,20 +29,22 @@ function Cell(i, j){
             fill(color(255, 255, 255));
             rect(x,y,w,w);
         }
-        // // Draw lines. Stroke(0) is the color.
-        // stroke(color(0, 0, 0));
-        // line(x, y, x + w, y);
-        // line(x+w, y, x+w, y+w);
-        // line(x+w, y+w, x, y+w);
-        // line(x, y+w, x, y);
     }
 
+    /**
+     * Clears the cell's status.
+     */
     this.resetCell = function(){
         this.isWall = false;
         this.green = false;
         this.red = false;
     }
     
+    /**
+     * Returns adjacent cells.
+     * As long as the adjacent cells aren't walls. They're valid
+     * cells.
+     */
     this.adjacentCells = function(){
         let neightbors = [];
         
@@ -58,11 +65,10 @@ function Cell(i, j){
             neightbors.push(left);
         }
         if(neightbors.length > 0){
-            var r = floor(random(0, neightbors.length));
             return neightbors;
-        }else {
-            return undefined;
         }
+
+        return undefined;
     }
 
     this.turnCellRed = function(){
@@ -82,7 +88,11 @@ function Cell(i, j){
 
 }
 
-
+/**
+ * Uses the x and y coordinates to find the cell index. 
+ * @param {float} mouseCorX 
+ * @param {float} mouseCorY 
+ */
 function mouseIndex(mouseCorX, mouseCorY){
     let i = 0;
     let j = 0;
@@ -100,6 +110,12 @@ function mouseIndex(mouseCorX, mouseCorY){
 
 }
 
+/**
+ * Uses the i and j values to find the index. The 2D grid is actually 
+ * a 1D array.
+ * @param {int} i 
+ * @param {int} j 
+ */
 function index(i, j){
     if(i < 1 || j < 1 || i >= cols-1 || j >= rows-1){
         return -1;

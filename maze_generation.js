@@ -1,5 +1,9 @@
-let MazeStack;
+var MazeStack;
 
+/**
+ * Sets up the depth first recursive backingtracking maze
+ * generation function.
+ */
 function activateMazeGenerationDFS(){
     MazeStack = [];
     playMazeGenerationAnimation = true;
@@ -9,6 +13,9 @@ function activateMazeGenerationDFS(){
 
 }
 
+/**
+ * Generates the maze. 
+ */
 function depthFirstRecursiveBacktracking(){
     if(MazeStack.length != 0){
         current.isWall = false;
@@ -48,6 +55,9 @@ function removeWalls(a, b){
     }
 }
 
+/**
+ * Returns a random neightbor that is a wall. 
+ */
 checkNeightbors = function(cell){
     var neightbors = [];
     
@@ -55,12 +65,12 @@ checkNeightbors = function(cell){
     var right = grid[index(cell.i+2, cell.j)];
     var bottom = grid[index(cell.i, cell.j+2)];
     var left = grid[index(cell.i-2, cell.j)];
+
     if(top && top.isWall){
         neightbors.push(top);
     }
     if(right && right.isWall){
         neightbors.push(right);
-
     }
     if(bottom && bottom.isWall){
         neightbors.push(bottom);
@@ -71,11 +81,13 @@ checkNeightbors = function(cell){
     if(neightbors.length > 0){
         let r = floor(random(0, neightbors.length));
         return neightbors[r];
-    }else {
-        return undefined;
     }
+    return undefined;
 }
 
+/**
+ * Every cell is turned into a wall. 
+ */
 function blackOutGrid(){
     for(let i = 0; i < grid.length; i++){
         grid[i].resetCell();
@@ -83,6 +95,9 @@ function blackOutGrid(){
     }
 }
 
+/**
+ * Resets entire grid. Clearing all walls.
+ */
 function resetGrid(){
     for(let i = 0; i < grid.length; i++){
         grid[i].resetCell();

@@ -1,4 +1,3 @@
-
 function depthFirstSearchPathFinding(){
     visited = []; stack = [];
     playDFSAnimation = true;
