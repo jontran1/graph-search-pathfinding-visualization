@@ -82,6 +82,11 @@ function mouseClicked(){
     }
 }
 
+/**
+ * Function checks for startCell or targetCell dragging. 
+ * If either of these cells are dragged over a wall, the function simply returns.
+ * Else if the the startCell or targetCell is moved to a new location.
+ */
 function mouseDragged(){
     let index = mouseIndex(mouseX, mouseY);
     if(index < 0){
@@ -143,8 +148,12 @@ function setupStartAndTarget(){
     targetCell.red = true;
 }
 
+/**
+ * Setting the targetCell and the startCell.
+ * @param {Cell} cell 
+ */
 function setCell(cell){
-    let index = mouseIndex(mouseX, mouseY);
+    var index = mouseIndex(mouseX, mouseY);
     console.log(index)
     if(index >= 0){
         if(cell == targetCell){
@@ -163,6 +172,9 @@ function setCell(cell){
     return false;
 }
 
+/**
+ * Resets the entire grid. 
+ */
 function reset(){
     playDFSAnimation = false;
     playBFSAnimation = false;
@@ -172,6 +184,9 @@ function reset(){
     loop();
 }
 
+/**
+ * Checks if mouse is on targetCell.
+ */
 function mouseIsOnTarget(){
     if(grid[mouseIndex(mouseX, mouseY)] == targetCell){
         return true;
@@ -179,6 +194,9 @@ function mouseIsOnTarget(){
     return false;
 }
 
+/**
+ * Checks if mouse is on startingCell.
+ */
 function mouseIsOnStartingCell(){
     if(grid[mouseIndex(mouseX, mouseY)] == startCell){
         return true;
@@ -186,10 +204,13 @@ function mouseIsOnStartingCell(){
     return false;
 }
 
+
 function dragTarget(){
     if(grid[mouseIndex(mouseX, mouseY)] == targetCell && mouseOnTarget){
         return true;
-    }}
+    }
+    return false;
+}
 
 Array.min = function(array){
     return Math.min.apply(Math, array);
