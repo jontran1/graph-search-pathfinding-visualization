@@ -22,6 +22,9 @@ function dijkstra_setup(){
     distance.set(startCell, 0);
 }
 
+/**
+ * Performs the pathfinding from the startCell to the targetCell. 
+ */
 function dijkstra_path_finding(){
     console.log(Q.size);
     if(Q.size > 0){
@@ -51,28 +54,31 @@ function dijkstra_path_finding(){
         }
     }
     if(Q.size == 0){
-        console.log(prev);
+        
+        console.log(prev.get(targetCell));
         noLoop();
     }
 }
 
-function isAllNull(){
-    for(i = 0; i < Q.length; i++){
-        if(Q[i] !== null) return false;
-    }
-    return true;
-}
-
+/**
+ * Calcualate the distance between u and v cells.
+ * @param {Cell} u 
+ * @param {Cell} v 
+ */
 function getDistance(u, v){
     return Math.sqrt(Math.pow(u.i - v.i, 2) + Math.pow(u.j - v.j,2));
 }
 
+/**
+ * Uses a linear search to find the min dsitance. 
+ * Should consider getting better performance with a min heap data structure. 
+ */
 function getCellWithMinDistance(){
-    min = Number.MAX_VALUE;
+    tempMin = Number.MAX_VALUE;
     minCell = undefined;
     for(let[cell, dist] of distance){
-        if(Q.has(cell) && dist < min){
-            min = dist;
+        if(Q.has(cell) && dist < tempMin){
+            tempMin = dist;
             minCell = cell;
         }
     }
