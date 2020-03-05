@@ -1,5 +1,5 @@
 var cols, rows;
-var w = 70;
+var w = 20;
 var grid = [];
 var startCell;
 var targetCell;
@@ -23,7 +23,7 @@ function setup(){
     createCanvas(400,400);
     cols = floor(width/w);
     rows = floor(height/w);
-    frameRate(5);
+    frameRate(30);
     for(var j = 0; j < rows; j++){
         for(var i = 0; i < cols; i++){
             var cell = new Cell(i, j);
@@ -83,6 +83,8 @@ function draw(){
  * returns. 
  */
 function mouseClicked(){
+    if(playDijkstraAnimation) return;
+
     let index = mouseIndex(mouseX, mouseY);
     if(index >= 0) {
         if(grid[index] == targetCell || grid[index] == startCell){
@@ -99,21 +101,22 @@ function mouseClicked(){
  */
 function mouseDragged(){
     let index = mouseIndex(mouseX, mouseY);
+    let cell = grid[index];
     if(index < 0){
         return;
     }
-    if(grid[index].isWall){
+    if(cell.isWall){
         return;
     }
-    if(draggingTarget && grid[index] != startCell){
+    if(draggingTarget && cell != startCell){
         setCell(targetCell);
         return;
     }
-    if(draggingStartingCell && grid[index] != targetCell){
+    if(draggingStartingCell && cell != targetCell){
         setCell(startCell);
         return;
     }
-    grid[index].isWall = !grid[index].isWall;
+    cell.isWall = !cell.isWall;
     
 }
 
@@ -132,14 +135,18 @@ function mousePressed(){
     }
 }
 
-function mouseReleased() {
-    if(draggingTarget){
+function mouseReleased(){
+    let cell = grid[mouseIndex(mouseX, mouseY)];
+    
+    if(!cell) return;
+
+    if(draggingTarget && !cell.isWall){
         if(setCell(targetCell)){
             draggingTarget=false;
             console.log(grid[mouseIndex(mouseX, mouseY)]);
         }
     }
-    if(draggingStartingCell){
+    if(draggingStartingCell && !cell.isWall){
         if(setCell(startCell)){
             draggingStartingCell=false;
             console.log(grid[mouseIndex(mouseX, mouseY)]);
@@ -154,7 +161,7 @@ function setupStartAndTarget(){
 
     startCell = grid[index(1,1)];
     startCell.green = true;
-    targetCell = grid[index(rows-2,cols-2)];
+    targetCell = grid[index(rows-1,cols-1)];
     targetCell.red = true;
 }
 

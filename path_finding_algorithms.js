@@ -10,13 +10,17 @@ function dijkstra_setup(){
     distance = new Map(); prev = new Map(); Q = new Set();
 
     for(i = 0; i < grid.length; i++){
+        
         cell = grid[i];
-        // Set all distances to the largest possible value.
-        distance.set(cell, Number.MAX_VALUE);
-        // Set all previous to null.
-        prev.set(cell, undefined);
-        // Add cell to set.
-        Q.add(cell);
+        if(!cell.isWall){
+            // Set all distances to the largest possible value.
+            distance.set(cell, Number.MAX_VALUE);
+            // Set all previous to null.
+            prev.set(cell, undefined);
+            // Add cell to set.
+            Q.add(cell);
+        }
+
     }
     // Set the starting startCell distance to 0.
     distance.set(startCell, 0);
@@ -45,7 +49,7 @@ function dijkstra_path_finding(){
             for(i = 0; i < adjacentCells.length; i++){
                 adjacentCell = adjacentCells[i];
                 distanceToAdjacent = distance.get(origin) + getDistance(origin, adjacentCell);
-
+                adjacentCell.highlightCell();
                 if(distanceToAdjacent < distance.get(adjacentCell)){
                     distance.set(adjacentCell, distanceToAdjacent);
                     prev.set(adjacentCell, origin);
@@ -54,9 +58,11 @@ function dijkstra_path_finding(){
         }
     }
     if(Q.size == 0){
-        
-        console.log(prev.get(targetCell));
-        noLoop();
+        temp = targetCell;
+        while(temp !== startCell){
+            temp = prev.get(temp);
+            if(temp !== startCell) temp.highlightCell();
+        }
     }
 }
 
