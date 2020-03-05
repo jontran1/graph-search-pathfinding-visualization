@@ -1,29 +1,80 @@
-let dist;
-let prev;
-let qSet;
-function dijkstra_setup(){
-    dist = []; prev = []; q = []; qSet = [];
+var distance;
+var prev;
+var Q;
 
-    for(let i = 0; i < grid.length; i++){
-        dist.push(grid[i]);
-        set['dist.' + dist.indexOf(grid[i])] = Number.MAX_VALUE;        
-        prev[grid[i]] = 231231;
-        qSet[i] = grid[i];
-        
+/**
+ * Sets up the dijkstra's algorthim data structures needed.
+ */
+function dijkstra_setup(){
+    playDijkstraAnimation = true;
+    distance = new Map(); prev = new Map(); Q = new Set();
+
+    for(i = 0; i < grid.length; i++){
+        cell = grid[i];
+        // Set all distances to the largest possible value.
+        distance.set(cell, Number.MAX_VALUE);
+        // Set all previous to null.
+        prev.set(cell, undefined);
+        // Add cell to set.
+        Q.add(cell);
     }
-    dist['one'] = Number.MAX_VALUE;;
-    dist[grid[index(1,1)]] = 0;
-    console.log(dist[grid[4]]);
-    dijkstra_path_finding()
+    // Set the starting startCell distance to 0.
+    distance.set(startCell, 0);
 }
 
 function dijkstra_path_finding(){
-    if(qSet.length > 0){
-        
-    }
+    console.log(Q.size);
+    if(Q.size > 0){
+        // Get the index cell with the min distance.
+        origin = getCellWithMinDistance();
 
+        // Remove origin from set Q.
+        Q.forEach(function(cell){
+            if(origin.equals(cell)){
+                Q.delete(cell);
+            }
+        })
+
+        // for each neighbor v of u...
+        adjacentCells = origin.adjacentCells();
+
+        if(adjacentCells){
+            for(i = 0; i < adjacentCells.length; i++){
+                adjacentCell = adjacentCells[i];
+                distanceToAdjacent = distance.get(origin) + getDistance(origin, adjacentCell);
+
+                if(distanceToAdjacent < distance.get(adjacentCell)){
+                    distance.set(adjacentCell, distanceToAdjacent);
+                    prev.set(adjacentCell, origin);
+                }
+            }
+        }
+    }
+    if(Q.size == 0){
+        console.log(prev);
+        noLoop();
+    }
 }
 
-function minDistance(set, distance){
+function isAllNull(){
+    for(i = 0; i < Q.length; i++){
+        if(Q[i] !== null) return false;
+    }
+    return true;
+}
 
+function getDistance(u, v){
+    return Math.sqrt(Math.pow(u.i - v.i, 2) + Math.pow(u.j - v.j,2));
+}
+
+function getCellWithMinDistance(){
+    min = Number.MAX_VALUE;
+    minCell = undefined;
+    for(let[cell, dist] of distance){
+        if(Q.has(cell) && dist < min){
+            min = dist;
+            minCell = cell;
+        }
+    }
+    return minCell;
 }

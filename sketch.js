@@ -1,11 +1,14 @@
 var cols, rows;
-var w = 10;
+var w = 70;
 var grid = [];
 var startCell;
 var targetCell;
+
 var playDFSAnimation = false;
 var playBFSAnimation = false;
 var playMazeGenerationAnimation = false;
+var playDijkstraAnimation = false;
+
 var stack;
 var visited;
 var queue;  
@@ -20,13 +23,14 @@ function setup(){
     createCanvas(400,400);
     cols = floor(width/w);
     rows = floor(height/w);
-    frameRate(20);
+    frameRate(5);
     for(var j = 0; j < rows; j++){
         for(var i = 0; i < cols; i++){
             var cell = new Cell(i, j);
             grid.push(cell);
         }
     }
+
     makeMazeButton = createButton("Make Maze");
     makeMazeButton.mousePressed(activateMazeGenerationDFS);
 
@@ -35,6 +39,9 @@ function setup(){
 
     bfsButton = createButton("BFS");
     bfsButton.mousePressed(breadthFirstSearchPathFinding);
+
+    dijkstraButton = createButton("Dijkstra Algorithm");
+    dijkstraButton.mousePressed(dijkstra_setup);
 
     resetButton = createButton("Reset");
     resetButton.mousePressed(reset);
@@ -64,7 +71,10 @@ function draw(){
         BFSiter();
         return;
     }
-    dijkstra_setup();
+    if(playDijkstraAnimation){
+        dijkstra_path_finding();
+        return;
+    }
 }
 
 /**
@@ -144,7 +154,7 @@ function setupStartAndTarget(){
 
     startCell = grid[index(1,1)];
     startCell.green = true;
-    targetCell = grid[index(rows-3,cols-3)];
+    targetCell = grid[index(rows-2,cols-2)];
     targetCell.red = true;
 }
 
@@ -173,12 +183,13 @@ function setCell(cell){
 }
 
 /**
- * Resets the entire grid. 
+ * Resets the entire game. 
  */
 function reset(){
     playDFSAnimation = false;
     playBFSAnimation = false;
     playMazeGenerationAnimation = false;
+    playDijkstraAnimation = false;
     resetGrid();
     setupStartAndTarget();
     loop();

@@ -86,6 +86,10 @@ function Cell(i, j){
         rect(x,y,w,w);
     }
 
+    this.equals = function(cell){
+        return this.i === cell.i && this.j === cell.j;
+    }
+
 }
 
 /**
@@ -117,7 +121,10 @@ function mouseIndex(mouseCorX, mouseCorY){
  * @param {int} j 
  */
 function index(i, j){
-    if(i < 1 || j < 1 || i >= cols-1 || j >= rows-1){
+    // if(i < 1 || j < 1 || i >= cols-1 || j >= rows-1){
+    //     return -1;
+    // }
+    if(i < 0 || j < 0 || i >= cols || j >= rows){
         return -1;
     }
     return i + j * cols;
