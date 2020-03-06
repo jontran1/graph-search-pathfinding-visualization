@@ -14,7 +14,7 @@ function dijkstra_setup(){
         cell = grid[i];
         if(!cell.isWall){
             // Set all distances to the largest possible value.
-            distance.set(cell, Number.MAX_VALUE);
+            distance.set(cell, Infinity);
             // Set all previous to null.
             prev.set(cell, undefined);
             // Add cell to set.
@@ -35,6 +35,15 @@ function dijkstra_path_finding(){
         // Get the index cell with the min distance.
         origin = getCellWithMinDistance();
 
+        /**
+         * If origin is undefined. The remaining cells in Q set is inaccessible
+         * meaning its impossible for the path to even access the cell. 
+         * getCellWithMinDistance() can't find a cell that is in Q and has a min value.
+         * and therefore the set should be cleared. 
+         */
+        if(!origin){
+            Q.clear(); return;
+        }
         // Remove origin from set Q.
         Q.forEach(function(cell){
             if(origin.equals(cell)){
@@ -61,6 +70,7 @@ function dijkstra_path_finding(){
         temp = targetCell;
         while(temp !== startCell){
             temp = prev.get(temp);
+            if(!temp) return;
             if(temp !== startCell) temp.highlightCell();
         }
     }

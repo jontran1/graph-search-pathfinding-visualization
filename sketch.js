@@ -130,7 +130,7 @@ function mousePressed(){
         console.log("mouse clicked on target");
         console.log(grid[mouseIndex(mouseX, mouseY)]);
     }
-    if(mouseIsOnStartingCell()){
+    if(mouseIsOnStartingCell() && !playDijkstraAnimation){
         draggingStartingCell = true;
     }
 }

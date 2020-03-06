@@ -24,7 +24,7 @@ function Cell(i, j){
             return;
         }else if(this.isWall){
             fill(0);
-            rect(x,y,w+20,w+20);
+            rect(x,y,w+15,w+15);
         }else{
             fill(color(255, 255, 255));
             rect(x,y,w,w);
