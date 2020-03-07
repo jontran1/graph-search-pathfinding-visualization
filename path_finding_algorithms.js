@@ -57,7 +57,7 @@ function dijkstra_path_finding(){
         if(adjacentCells){
             for(i = 0; i < adjacentCells.length; i++){
                 adjacentCell = adjacentCells[i];
-                distanceToAdjacent = distance.get(origin) + getDistance(origin, adjacentCell);
+                distanceToAdjacent = distance.get(origin) + getEuclideanDistance(origin, adjacentCell);
                 adjacentCell.highlightCell();
                 if(distanceToAdjacent < distance.get(adjacentCell)){
                     distance.set(adjacentCell, distanceToAdjacent);
@@ -78,10 +78,11 @@ function dijkstra_path_finding(){
 
 /**
  * Calcualate the distance between u and v cells.
+ * Uses the euclidean distance formula.
  * @param {Cell} u 
  * @param {Cell} v 
  */
-function getDistance(u, v){
+function getEuclideanDistance(u, v){
     return Math.sqrt(Math.pow(u.i - v.i, 2) + Math.pow(u.j - v.j,2));
 }
 
