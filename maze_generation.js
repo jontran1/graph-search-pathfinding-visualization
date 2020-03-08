@@ -19,6 +19,7 @@ function activateMazeGenerationDFS(){
 function depthFirstRecursiveBacktracking(){
     if(MazeStack.length != 0){
         current.isWall = false;
+        current.highlightCell();
         // Step 1
         var next = checkNeightbors(current);
         if(next){
@@ -61,6 +62,7 @@ function removeWalls(a, b){
 checkNeightbors = function(cell){
     var neightbors = [];
     
+    // Skip over a cell to create a wall.
     var top = grid[index(cell.i,cell.j-2)];
     var right = grid[index(cell.i+2, cell.j)];
     var bottom = grid[index(cell.i, cell.j+2)];
@@ -79,7 +81,7 @@ checkNeightbors = function(cell){
         neightbors.push(left);
     }
     if(neightbors.length > 0){
-        let r = floor(random(0, neightbors.length));
+        var r = floor(random(0, neightbors.length));
         return neightbors[r];
     }
     return undefined;
@@ -89,7 +91,7 @@ checkNeightbors = function(cell){
  * Every cell is turned into a wall. 
  */
 function blackOutGrid(){
-    for(let i = 0; i < grid.length; i++){
+    for(var i = 0; i < grid.length; i++){
         grid[i].resetCell();
         grid[i].isWall = true;
     }
@@ -99,7 +101,7 @@ function blackOutGrid(){
  * Resets entire grid. Clearing all walls.
  */
 function resetGrid(){
-    for(let i = 0; i < grid.length; i++){
+    for(var i = 0; i < grid.length; i++){
         grid[i].resetCell();
     }
 }
