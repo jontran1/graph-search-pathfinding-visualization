@@ -30,7 +30,6 @@ function dijkstra_setup(){
  * Performs the pathfinding from the startCell to the targetCell. 
  */
 function dijkstra_path_finding(){
-    console.log(Q.size);
     if(Q.size > 0){
         // Get the index cell with the min distance.
         origin = getCellWithMinDistance(distance);
