@@ -1,5 +1,5 @@
 var cols, rows;
-var w = 20;
+var w = 40;
 var grid = [];
 var startCell;
 var targetCell;
@@ -8,6 +8,7 @@ var playDFSAnimation = false;
 var playBFSAnimation = false;
 var playMazeGenerationAnimation = false;
 var playDijkstraAnimation = false;
+var playA_StarAnimation = false;
 
 var stack;
 var visited;
@@ -23,7 +24,7 @@ function setup(){
     createCanvas(400,400);
     cols = floor(width/w);
     rows = floor(height/w);
-    frameRate(30);
+    frameRate(60);
     for(var j = 0; j < rows; j++){
         for(var i = 0; i < cols; i++){
             var cell = new Cell(i, j);
@@ -42,6 +43,9 @@ function setup(){
 
     dijkstraButton = createButton("Dijkstra Algorithm");
     dijkstraButton.mousePressed(dijkstra_setup);
+
+    a_StarButton = createButton("A Star Algorithm");
+    a_StarButton.mousePressed(setupA_Star);
 
     resetButton = createButton("Reset");
     resetButton.mousePressed(reset);
@@ -73,6 +77,10 @@ function draw(){
     }
     if(playDijkstraAnimation){
         dijkstra_path_finding();
+        return;
+    }
+    if(playA_StarAnimation){
+        aStar();
         return;
     }
 }
