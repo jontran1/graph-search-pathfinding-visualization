@@ -1,5 +1,5 @@
 var cols, rows;
-var w = 40;
+var w = 20;
 var grid = [];
 var startCell;
 var targetCell;
@@ -21,7 +21,7 @@ var mouseOnStartingCell = false;
 var draggingStartingCell = false;
 
 function setup(){
-    createCanvas(400,400);
+    var canvas = createCanvas(400,400);
     cols = floor(width/w);
     rows = floor(height/w);
     frameRate(60);
@@ -31,6 +31,8 @@ function setup(){
             grid.push(cell);
         }
     }
+
+    canvas.parent('sketch-holder');
 
     makeMazeButton = createButton("Make Maze");
     makeMazeButton.mousePressed(activateMazeGenerationDFS);
