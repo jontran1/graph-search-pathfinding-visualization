@@ -95,7 +95,7 @@ function draw(){
 function mouseClicked(){
 
     let cell = grid[mouseIndex(mouseX, mouseY)];
-    
+
     if(!cell) return;
 
     if(cell == targetCell || cell == startCell)return;
@@ -125,7 +125,7 @@ function mouseDragged(){
         setCell(startCell);
         return;
     }
-    cell.isWall = !cell.isWall;
+    setTimeout((cell) => {cell.isWall = !cell.isWall;}, 10, cell);
     
 }
 
