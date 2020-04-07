@@ -107,9 +107,8 @@ function mouseClicked(){
  * Else if the the startCell or targetCell is moved to a new location.
  */
 function mouseDragged(){
-    let index = mouseIndex(mouseX, mouseY);
     let cell = grid[index];
-    if(index < 0){
+    if(!cell){
         return;
     }
     if(cell.isWall){
