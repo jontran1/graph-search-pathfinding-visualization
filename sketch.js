@@ -1,5 +1,5 @@
 var cols, rows;
-var w = 20;
+var w = 25;
 var grid = [];
 var startCell;
 var targetCell;
@@ -21,7 +21,7 @@ var mouseOnStartingCell = false;
 var draggingStartingCell = false;
 
 function setup(){
-    var canvas = createCanvas(400,400);
+    var canvas = createCanvas(500,500);
     cols = floor(width/w);
     rows = floor(height/w);
     frameRate(60);
