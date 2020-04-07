@@ -133,8 +133,6 @@ function mouseDragged(){
 function mousePressed(){
     if(mouseIsOnTarget()){
         draggingTarget = true;
-        console.log("mouse clicked on target");
-        console.log(grid[mouseIndex(mouseX, mouseY)]);
     }
     if(mouseIsOnStartingCell() && !playDijkstraAnimation){
         draggingStartingCell = true;
@@ -146,13 +144,13 @@ function mouseReleased(){
     
     if(!cell) return;
 
-    if(draggingTarget && !cell.isWall){
+    if(draggingTarget && cell != startCell && !cell.isWall){
         if(setCell(targetCell)){
             draggingTarget=false;
             console.log(grid[mouseIndex(mouseX, mouseY)]);
         }
     }
-    if(draggingStartingCell && !cell.isWall){
+    if(draggingStartingCell && cell != targetCell && !cell.isWall){
         if(setCell(startCell)){
             draggingStartingCell=false;
             console.log(grid[mouseIndex(mouseX, mouseY)]);
