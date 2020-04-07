@@ -93,13 +93,10 @@ function draw(){
  * returns. 
  */
 function mouseClicked(){
-    if(playDijkstraAnimation) return;
 
-    let index = mouseIndex(mouseX, mouseY);
-    if(index >= 0) {
-        if(grid[index] == targetCell || grid[index] == startCell){
-            return;
-        }
+    let cell = grid[mouseIndex(mouseX, mouseY)];
+    if(!cell) {
+        if(cell == targetCell || cell == startCell)return;
         grid[index].isWall = !grid[index].isWall;
     }
 }
