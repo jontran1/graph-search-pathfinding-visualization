@@ -95,10 +95,13 @@ function draw(){
 function mouseClicked(){
 
     let cell = grid[mouseIndex(mouseX, mouseY)];
-    if(!cell) {
-        if(cell == targetCell || cell == startCell)return;
-        grid[index].isWall = !grid[index].isWall;
-    }
+    
+    if(!cell) return;
+
+    if(cell == targetCell || cell == startCell)return;
+
+    grid[index].isWall = !grid[index].isWall;
+    
 }
 
 /**
@@ -147,13 +150,11 @@ function mouseReleased(){
     if(draggingTarget && cell != startCell && !cell.isWall){
         if(setCell(targetCell)){
             draggingTarget=false;
-            console.log(grid[mouseIndex(mouseX, mouseY)]);
         }
     }
     if(draggingStartingCell && cell != targetCell && !cell.isWall){
         if(setCell(startCell)){
             draggingStartingCell=false;
-            console.log(grid[mouseIndex(mouseX, mouseY)]);
         }
     }
   }
