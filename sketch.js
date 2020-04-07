@@ -97,11 +97,8 @@ function mouseClicked(){
     let cell = grid[mouseIndex(mouseX, mouseY)];
 
     if(!cell) return;
-
     if(cell == targetCell || cell == startCell)return;
-
-    grid[index].isWall = !grid[index].isWall;
-    
+    cell.isWall = !cell.isWall;
 }
 
 /**
