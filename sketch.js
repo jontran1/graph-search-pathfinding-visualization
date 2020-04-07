@@ -107,7 +107,7 @@ function mouseClicked(){
  * Else if the the startCell or targetCell is moved to a new location.
  */
 function mouseDragged(){
-    let cell = grid[index];
+    let cell = grid[mouseIndex(mouseX, mouseY)];
     if(!cell){
         return;
     }
