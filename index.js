@@ -6,3 +6,6 @@ dfs_backtracking_maze_gen_button.addEventListener("click", () => {
     visualizeButton.addEventListener("click", activateMazeGenerationDFS);
 })
 
+const resetButton = document.getElementById("reset");
+
+resetButton.addEventListener("click", reset);
