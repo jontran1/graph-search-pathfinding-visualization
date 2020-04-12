@@ -49,9 +49,6 @@ function setup(){
     a_StarButton = createButton("A Star Algorithm");
     a_StarButton.mousePressed(setupA_Star);
 
-    resetButton = createButton("Reset");
-    resetButton.mousePressed(reset);
-
     setupStartAndTarget();
 }
 
