@@ -1,4 +1,4 @@
-function depthFirstSearchPathFinding(){
+function depthFirstSearchSetup(){
     visited = []; stack = [];
     playDFSAnimation = true;
     targetCell.red = true;
@@ -28,7 +28,7 @@ function DFSiter(){
     }
 }
 
-function breadthFirstSearchPathFinding(){
+function breadthFirstSearchSetup(){
     visited = []; stack = [];
     queue = new Queue(rows*cols);
     playBFSAnimation = true;

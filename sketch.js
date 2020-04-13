@@ -38,10 +38,10 @@ function setup(){
     makeMazeButton.mousePressed(activateMazeGenerationDFS);
 
     dfsButton = createButton("DFS");
-    dfsButton.mousePressed(depthFirstSearchPathFinding);
+    dfsButton.mousePressed(depthFirstSearchSetup);
 
     bfsButton = createButton("BFS");
-    bfsButton.mousePressed(breadthFirstSearchPathFinding);
+    bfsButton.mousePressed(breadthFirstSearchSetup);
 
     dijkstraButton = createButton("Dijkstra Algorithm");
     dijkstraButton.mousePressed(dijkstra_setup);
