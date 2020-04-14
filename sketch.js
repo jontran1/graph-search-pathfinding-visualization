@@ -75,7 +75,9 @@ function draw(){
         return;
     }
     if(playDijkstraAnimation){
-        dijkstra_path_finding();
+        if(dijkstra_path_finding()){
+            getDijkstraPath();
+        }
         return;
     }
     if(playA_StarAnimation){

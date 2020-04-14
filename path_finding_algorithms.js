@@ -65,7 +65,12 @@ function dijkstra_path_finding(){
                 }
             }
         }
+        return false;
     }
+    return true;
+}
+
+function getDijkstraPath(){
     if(Q.size == 0){
         temp = targetCell;
         while(temp !== startCell){
