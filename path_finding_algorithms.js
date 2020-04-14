@@ -140,7 +140,7 @@ function setupA_Star(){
 
 }
 
-function aStar(){
+function aStarShortestPath(){
     if(Q.size > 0){
         // Get the node with the lowest fScore value.
         current = getCellWithMinDistance(fScore);
