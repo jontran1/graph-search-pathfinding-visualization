@@ -95,6 +95,7 @@ function mouseClicked(){
 
     if(!cell) return;
     if(cell == targetCell || cell == startCell)return;
+    if(draggingTarget || draggingStartingCell) return;
     cell.isWall = !cell.isWall;
 }
 
