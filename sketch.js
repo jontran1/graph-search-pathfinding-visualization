@@ -15,7 +15,7 @@ var visited;
 var queue;  
 
 var mouseOnTarget = false;
-var draggingTarget = false;
+var draggingTargetCell = false;
 
 var mouseOnStartingCell = false;
 var draggingStartingCell = false;
@@ -95,7 +95,7 @@ function mouseClicked(){
 
     if(!cell) return;
     if(cell == targetCell || cell == startCell)return;
-    if(draggingTarget || draggingStartingCell) return;
+    if(draggingTargetCell || draggingStartingCell) return;
     cell.isWall = !cell.isWall;
 }
 
@@ -112,7 +112,7 @@ function mouseDragged(){
     if(cell.isWall){
         return;
     }
-    if(draggingTarget && cell != startCell){
+    if(draggingTargetCell && cell != startCell){
         setCell(targetCell);
         return;
     }
@@ -130,7 +130,7 @@ function mouseDragged(){
  */
 function mousePressed(){
     if(mouseIsOnTarget()){
-        draggingTarget = true;
+        draggingTargetCell = true;
     }
     if(mouseIsOnStartingCell() && !playDijkstraAnimation){
         draggingStartingCell = true;
@@ -142,9 +142,9 @@ function mouseReleased(){
     
     if(!cell) return;
 
-    if(draggingTarget && cell != startCell && !cell.isWall){
+    if(draggingTargetCell && cell != startCell && !cell.isWall){
         if(setCell(targetCell)){
-            draggingTarget=false;
+            draggingTargetCell=false;
         }
     }
     if(draggingStartingCell && cell != targetCell && !cell.isWall){
