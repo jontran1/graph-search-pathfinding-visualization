@@ -162,14 +162,25 @@ var gScore;
 var fScore;
 
 function setupA_Star(){
+    setupA_StarHelper();
+
+    currentAlgorithmObject.runFunction = function(){
+        if(aStarShortestPath()){
+            this.runFunction = function() {
+                getAStarShortestPath()
+            };
+        }
+    }
+}
+
+function setupA_StarHelper() {
     Q = new Set();
     prev = new Map();
     gScore = new Map();
     fScore = new Map();
-
-    for(i = 0; i < grid.length; i++){
+    for (i = 0; i < grid.length; i++) {
         cell = grid[i];
-        if(!cell.isWall){
+        if (!cell.isWall) {
             // Set all distances to the largest possible value.
             gScore.set(cell, Infinity);
             fScore.set(cell, Infinity);
@@ -179,17 +190,8 @@ function setupA_Star(){
             Q.add(cell);
         }
     }
-
     gScore.set(startCell, 0);
     fScore.set(startCell, heuristic(startCell));
-
-    currentAlgorithmObject.runFunction = function(){
-        if(aStarShortestPath()){
-            this.runFunction = function() {
-                getAStarShortestPath()
-            };
-        }
-    }
 }
 
 function aStarShortestPath(){
@@ -237,26 +239,7 @@ function aStarShortestPath(){
 }
 
 function getAStarShortestPath(){
-    Q = new Set();
-    prev = new Map();
-    gScore = new Map();
-    fScore = new Map();
-
-    for(i = 0; i < grid.length; i++){
-        cell = grid[i];
-        if(!cell.isWall){
-            // Set all distances to the largest possible value.
-            gScore.set(cell, Infinity);
-            fScore.set(cell, Infinity);
-            // Set all previous to null.
-            prev.set(cell, undefined);
-            // Add cell to set.
-            Q.add(cell);
-        }
-    }
-
-    gScore.set(startCell, 0);
-    fScore.set(startCell, heuristic(startCell));
+    setupA_StarHelper();
 
     while(Q.size > 0){
         // Get the node with the lowest fScore value.
