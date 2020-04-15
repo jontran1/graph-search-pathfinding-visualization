@@ -187,7 +187,6 @@ function setupA_Star(){
     currentAlgorithmObject.runFunction = function(){
         if(aStarShortestPath()){
             this.runFunction = function() {
-                console.log("Hello");
                 getAStarShortestPath()
             };
         }
