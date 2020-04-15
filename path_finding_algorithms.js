@@ -24,6 +24,12 @@ function dijkstra_setup(){
     }
     // Set the starting startCell distance to 0.
     distance.set(startCell, 0);
+
+    currentAlgorithmObject.runFunction = function(){
+        if(dijkstra_path_finding()){
+            getDijkstraPath();
+        }
+    }
 }
 
 /**
@@ -138,21 +144,30 @@ function setupA_Star(){
     gScore.set(startCell, 0);
     fScore.set(startCell, heuristic(startCell));
 
+    currentAlgorithmObject.runFunction = function(){
+        if(aStarShortestPath()){
+            this.runFunction = function() {
+                console.log("Hello");
+                getAStarShortestPath()
+            };
+        }
+    }
 }
 
 function aStarShortestPath(){
     if(Q.size > 0){
         // Get the node with the lowest fScore value.
         current = getCellWithMinDistance(fScore);
+        if(!current)return;
+        current.highlightCell();
         if(current === targetCell){
-            console.log("a star found target cell");
             temp = targetCell;
             while(temp !== startCell){
                 temp = prev.get(temp);
                 if(!temp) return;
                 if(temp !== startCell) temp.highlightCell();
             }
-            return;
+            return true;
         }
 
         // Remove origin from set Q.
@@ -161,7 +176,6 @@ function aStarShortestPath(){
                 Q.delete(cell);
             }
         })
-        current.highlightCell();
         adjacentCells = current.adjacentCells();
         
         if(adjacentCells){
@@ -179,6 +193,70 @@ function aStarShortestPath(){
                 }
             }
         }
+        return false;
+    }
+    return true;
+}
 
+function getAStarShortestPath(){
+    Q = new Set();
+    prev = new Map();
+    gScore = new Map();
+    fScore = new Map();
+
+    for(i = 0; i < grid.length; i++){
+        cell = grid[i];
+        if(!cell.isWall){
+            // Set all distances to the largest possible value.
+            gScore.set(cell, Infinity);
+            fScore.set(cell, Infinity);
+            // Set all previous to null.
+            prev.set(cell, undefined);
+            // Add cell to set.
+            Q.add(cell);
+        }
+    }
+
+    gScore.set(startCell, 0);
+    fScore.set(startCell, heuristic(startCell));
+
+    while(Q.size > 0){
+        // Get the node with the lowest fScore value.
+        current = getCellWithMinDistance(fScore);
+        if(!current)return;
+        current.turnCellGrey();
+        if(current === targetCell){
+            temp = targetCell;
+            while(temp !== startCell){
+                temp = prev.get(temp);
+                if(!temp) return;
+                if(temp !== startCell) temp.highlightCell();
+            }
+            return;
+        }
+
+        // Remove origin from set Q.
+        Q.forEach(function(cell){
+            if(current.equals(cell)){
+                Q.delete(cell);
+            }
+        })
+        adjacentCells = current.adjacentCells();
+        
+        if(adjacentCells){
+            for(i = 0; i < adjacentCells.length; i++){
+                adjacentCell = adjacentCells[i];
+                tentative_gScore = gScore.get(current) + getEuclideanDistance(current, adjacentCell);
+
+                if(tentative_gScore < gScore.get(adjacentCell)){
+                    prev.set(adjacentCell, current);
+                    gScore.set(adjacentCell, tentative_gScore);
+                    fScore.set(adjacentCell, gScore.get(adjacentCell) + heuristic(adjacentCell));
+                    if(!Q.has(adjacentCell)){
+                        Q.add(adjacentCell);
+                    }
+                }
+            }
+        }
     }
 }
