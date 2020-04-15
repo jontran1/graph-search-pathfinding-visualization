@@ -166,7 +166,6 @@ function setupA_Star(){
     prev = new Map();
     gScore = new Map();
     fScore = new Map();
-    playA_StarAnimation = true;
 
     for(i = 0; i < grid.length; i++){
         cell = grid[i];
