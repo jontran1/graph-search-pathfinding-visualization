@@ -77,6 +77,46 @@ function dijkstra_path_finding(){
 }
 
 function getDijkstraPath(){
+    dijkstra_setup();
+
+    while(Q.size > 0){
+        // Get the index cell with the min distance.
+        origin = getCellWithMinDistance(distance);
+
+        /**
+         * If origin is undefined. The remaining cells in Q set is inaccessible
+         * meaning its impossible for the path to even access the cell. 
+         * getCellWithMinDistance() can't find a cell that is in Q and has a min value.
+         * and therefore the set should be cleared. 
+         */
+        if(!origin){
+            Q.clear(); break;
+        }else origin.turnCellGrey();
+
+        // Remove origin from set Q.
+        Q.forEach(function(cell){
+            if(origin.equals(cell)){
+                Q.delete(cell);
+            }
+        })
+
+        // for each neighbor v of u...
+        adjacentCells = origin.adjacentCells();
+
+        if(adjacentCells){
+            for(i = 0; i < adjacentCells.length; i++){
+                adjacentCell = adjacentCells[i];
+                distanceToAdjacent = distance.get(origin) + getEuclideanDistance(origin, adjacentCell);
+
+                if(distanceToAdjacent < distance.get(adjacentCell)){
+                    distance.set(adjacentCell, distanceToAdjacent);
+                    prev.set(adjacentCell, origin);
+                }
+            }
+        }
+    }
+
+
     if(Q.size == 0){
         temp = targetCell;
         while(temp !== startCell){
