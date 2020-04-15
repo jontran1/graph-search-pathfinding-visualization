@@ -4,11 +4,8 @@ var grid = [];
 var startCell;
 var targetCell;
 
-var playDFSAnimation = false;
 var playBFSAnimation = false;
 var playMazeGenerationAnimation = false;
-var playDijkstraAnimation = false;
-var playA_StarAnimation = false;
 
 var stack;
 var visited;
