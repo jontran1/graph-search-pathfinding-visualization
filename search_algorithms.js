@@ -1,20 +1,29 @@
 function depthFirstSearchSetup(){
+    console.log("DFS!!!")
     visited = []; stack = [];
-    playDFSAnimation = true;
-    targetCell.red = true;
     stack.push(startCell);
+
+    currentAlgorithmObject.runFunction = function(){
+        if(playDFSAnimation()){
+            this.runFunction = function() {
+                DFSIter()
+            };
+        }
+    }
 }
 
-function DFSiter(){
-    if(stack.length > 0){
+function DFSIter(){
+    visited = []; stack = [];
+    stack.push(startCell);
+
+
+    while(stack.length > 0){
         current = stack.pop();
-        current.highlightCell();
-        current.green = true;
+        current.turnCellGreen();
 
         if(current == targetCell){
             visited.push(current);
-            playDFSAnimation = false;
-            noLoop();
+            return;
         }
         if(!visited.includes(current)){
             visited.push(current);
@@ -26,6 +35,29 @@ function DFSiter(){
             }
         }
     }
+}
+
+function playDFSAnimation(){
+    if(stack.length > 0){
+        current = stack.pop();
+        current.highlightCell();
+        current.green = true;
+
+        if(current == targetCell){
+            visited.push(current);
+            return true;
+        }
+        if(!visited.includes(current)){
+            visited.push(current);
+            adjacentCells = current.adjacentCells();
+            if(adjacentCells){
+                for(let i = 0; i < adjacentCells.length; i++){
+                    stack.push(adjacentCells[i]);
+                }
+            }
+        }
+    }
+    return false;
 }
 
 function breadthFirstSearchSetup(){
