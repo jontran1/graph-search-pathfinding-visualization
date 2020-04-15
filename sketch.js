@@ -20,6 +20,17 @@ var draggingTargetCell = false;
 var mouseOnStartingCell = false;
 var draggingStartingCell = false;
 
+var currentAlgorithmObject = {
+    
+    runFunction : function(){console.log("Its running")},
+
+    setFunction: function(functionObject){
+        this.run = functionObject;
+    }
+}
+
+
+
 function setup(){
     var canvas = createCanvas(500,500);
     cols = floor(width/w);
@@ -61,29 +72,12 @@ function draw(){
 
     for(var i = 0; i < grid.length; i++){
         grid[i].show();
-    }    
-    if(playMazeGenerationAnimation){
-        depthFirstRecursiveBacktracking();
-        return;
-    }
-    if(playDFSAnimation){
-        DFSiter();
-        return;
-    }
-    if(playBFSAnimation){
-        BFSiter();
-        return;
-    }
-    if(playDijkstraAnimation){
-        if(dijkstra_path_finding()){
-            getDijkstraPath();
-        }
-        return;
-    }
-    if(playA_StarAnimation){
-        aStar();
-        return;
-    }
+    }  
+      
+    currentAlgorithmObject.runFunction();
+
+    startCell.turnCellGreen();
+    targetCell.turnCellRed();
 }
 
 /**
