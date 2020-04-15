@@ -19,7 +19,7 @@ function DFSIter(){
 
     while(stack.length > 0){
         current = stack.pop();
-        current.turnCellGreen();
+        current.turnCellGrey();
 
         if(current == targetCell){
             visited.push(current);
@@ -40,8 +40,7 @@ function DFSIter(){
 function playDFSAnimation(){
     if(stack.length > 0){
         current = stack.pop();
-        current.highlightCell();
-        current.green = true;
+        current.turnCellGrey();
 
         if(current == targetCell){
             visited.push(current);
