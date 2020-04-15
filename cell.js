@@ -86,6 +86,11 @@ function Cell(i, j){
         rect(x,y,w,w);
     }
 
+    this.turnCellGrey = function(){
+        fill(200,200,200);
+        rect(x,y,w,w);
+    }
+
     this.equals = function(cell){
         return this.i === cell.i && this.j === cell.j;
     }
