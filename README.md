@@ -2,7 +2,7 @@
 
 ## Description:
 
-​	Right now, there's only depth first search algorithm. Maze generation uses depth-first search recursive backtracker. 
+​	A web application allow users to see how different algorithms play out. Currently working on adding more algorithms.
 
 ## Maze Generation:
 
