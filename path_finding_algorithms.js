@@ -280,3 +280,8 @@ function getAStarShortestPath(){
         }
     }
 }
+
+function setupBestFirstSearch(){
+    distance = new Map();
+    distance.set(startCell, 0);
+}
