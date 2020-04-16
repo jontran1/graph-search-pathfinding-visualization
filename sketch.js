@@ -4,8 +4,6 @@ var grid = [];
 var startCell;
 var targetCell;
 
-var playMazeGenerationAnimation = false;
-
 var stack;
 var visited;
 var queue;  
