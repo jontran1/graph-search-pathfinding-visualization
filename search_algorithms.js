@@ -62,12 +62,10 @@ function playDFSAnimation(){
 function breadthFirstSearchSetup(){
     visited = []; stack = [];
     queue = new Queue(rows*cols);
-    playBFSAnimation = true;
     queue.enqueue(startCell); 
-    targetCell.red = true;
 }
 
-function BFSiter(){
+function playBFSAnimation(){
     if(!queue.isEmpty()){
         current = queue.dequeue();
         current.highlightCell();

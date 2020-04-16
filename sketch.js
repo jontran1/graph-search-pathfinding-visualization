@@ -4,7 +4,6 @@ var grid = [];
 var startCell;
 var targetCell;
 
-var playBFSAnimation = false;
 var playMazeGenerationAnimation = false;
 
 var stack;
