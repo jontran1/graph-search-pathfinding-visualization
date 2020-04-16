@@ -60,28 +60,32 @@ function playDFSAnimation(){
 }
 
 function breadthFirstSearchSetup(){
-    visited = []; stack = [];
-    queue = new Queue(rows*cols);
-    queue.enqueue(startCell); 
+    bredthFirstSearchSetupHelper(); 
 
     currentAlgorithmObject.runFunction = function(){
         if(playBFSAnimation()){
             this.runFunction = function() {
-                DFSIter();
+                BFSIter();
             };
         }
     }
 }
 
+function bredthFirstSearchSetupHelper() {
+    visited = [];
+    stack = [];
+    queue = new Queue(rows * cols);
+    queue.enqueue(startCell);
+}
+
 function playBFSAnimation(){
     if(!queue.isEmpty()){
         current = queue.dequeue();
-        current.highlightCell();
-        current.green = true;
+        current.turnCellGrey();
+
         if(current == targetCell){
             visited.push(current);
-            noLoop();
-            playBFSAnimation = false;
+            return true;
         }
         if(!visited.includes(current)){
             visited.push(current);
@@ -93,17 +97,19 @@ function playBFSAnimation(){
             }
         }
     }
+    return false;
 }
 
 function BFSIter(){
-    if(!queue.isEmpty()){
+    bredthFirstSearchSetupHelper();
+
+    while(!queue.isEmpty()){
         current = queue.dequeue();
-        current.highlightCell();
-        current.green = true;
+        current.turnCellGrey();
+
         if(current == targetCell){
             visited.push(current);
-            noLoop();
-            playBFSAnimation = false;
+            return;
         }
         if(!visited.includes(current)){
             visited.push(current);
