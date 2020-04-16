@@ -124,7 +124,7 @@ function mousePressed(){
     if(mouseIsOnTarget()){
         draggingTargetCell = true;
     }
-    if(mouseIsOnStartingCell() && !playDijkstraAnimation){
+    if(mouseIsOnStartingCell()){
         draggingStartingCell = true;
     }
 }
@@ -185,10 +185,7 @@ function setCell(cell){
  * Resets the entire game. 
  */
 function reset(){
-    playDFSAnimation = false;
-    playBFSAnimation = false;
     playMazeGenerationAnimation = false;
-    playDijkstraAnimation = false;
     resetGrid();
     setupStartAndTarget();
     loop();
