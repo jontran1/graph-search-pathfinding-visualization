@@ -6,7 +6,6 @@ var Q;
  * Sets up the dijkstra's algorthim data structures needed.
  */
 function dijkstra_setup(){
-    playDijkstraAnimation = true;
     distance = new Map(); prev = new Map(); Q = new Set();
 
     for(i = 0; i < grid.length; i++){
