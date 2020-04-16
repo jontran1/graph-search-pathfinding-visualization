@@ -11,6 +11,10 @@ function activateMazeGenerationDFS(){
     current = grid[index(1,1)];
     MazeStack.push(current);
 
+    currentAlgorithmObject.runFunction = function(){
+        playDepthFirstRecursiveBacktrackingAnimation();
+    }
+
 }
 
 /**
@@ -33,11 +37,10 @@ function playDepthFirstRecursiveBacktrackingAnimation(){
         }else if(MazeStack.length > 0) {
             current = MazeStack.pop();
         }
-    }else {
-        console.log("Maze generation finished!");
-        setupStartAndTarget();
-        playMazeGenerationAnimation = false;
+        return false;
     }
+    setupStartAndTarget();
+    return true;
 }
 
 function removeWalls(a, b){
