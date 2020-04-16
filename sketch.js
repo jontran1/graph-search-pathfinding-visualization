@@ -62,14 +62,13 @@ function setup(){
  * on what is happening on screen. 
  */
 function draw(){
-    //console.log(grid[mouseIndex(mouseX, mouseY)]);
 
     for(var i = 0; i < grid.length; i++){
         grid[i].show();
     }  
       
     currentAlgorithmObject.runFunction();
-
+    
     startCell.turnCellGreen();
     targetCell.turnCellRed();
 }
@@ -161,7 +160,7 @@ function setupStartAndTarget(){
  */
 function setCell(cell){
     var index = mouseIndex(mouseX, mouseY);
-    console.log(index)
+
     if(index >= 0){
         if(cell == targetCell){
             targetCell.resetCell();
