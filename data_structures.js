@@ -81,4 +81,16 @@ class Queue {
       }
    }
 
+   dequeue(){
+      if(this.isEmpty()){
+         return undefined;
+      }
+      return this.items.shift();
+   }
+
+   front(){
+      if(this.isEmpty()) return undefined;
+      return this.items[0];
+   }
+
  }
