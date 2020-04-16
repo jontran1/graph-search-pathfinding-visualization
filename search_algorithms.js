@@ -1,5 +1,4 @@
 function depthFirstSearchSetup(){
-    console.log("DFS!!!")
     visited = []; stack = [];
     stack.push(startCell);
 
