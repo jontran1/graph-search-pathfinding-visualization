@@ -16,7 +16,7 @@ function activateMazeGenerationDFS(){
 /**
  * Generates the maze. 
  */
-function depthFirstRecursiveBacktracking(){
+function playDepthFirstRecursiveBacktrackingAnimation(){
     if(MazeStack.length != 0){
         current.isWall = false;
         current.highlightCell();
