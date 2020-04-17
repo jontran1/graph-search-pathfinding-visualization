@@ -38,7 +38,7 @@ function dijkstra_setup(){
 function dijkstra_path_finding(){
     if(set.size > 0){
         // Get the index cell with the min distance.
-        origin = getCellWithMinDistance(distance);
+        current = getCellWithMinDistance(distance);
 
         /**
          * If origin is undefined. The remaining cells in Q set is inaccessible
@@ -46,28 +46,28 @@ function dijkstra_path_finding(){
          * getCellWithMinDistance() can't find a cell that is in Q and has a min value.
          * and therefore the set should be cleared. 
          */
-        if(!origin){
+        if(!current){
             set.clear(); return;
-        }else origin.highlightCell();
+        }else current.highlightCell();
 
-        // Remove origin from set Q.
+        // Remove current from set Q.
         set.forEach(function(cell){
-            if(origin.equals(cell)){
+            if(current.equals(cell)){
                 set.delete(cell);
             }
         })
 
         // for each neighbor v of u...
-        adjacentCells = origin.adjacentCells();
+        adjacentCells = current.adjacentCells();
 
         if(adjacentCells){
             for(i = 0; i < adjacentCells.length; i++){
                 adjacentCell = adjacentCells[i];
-                distanceToAdjacent = distance.get(origin) + getEuclideanDistance(origin, adjacentCell);
+                distanceToAdjacent = distance.get(current) + getEuclideanDistance(current, adjacentCell);
 
                 if(distanceToAdjacent < distance.get(adjacentCell)){
                     distance.set(adjacentCell, distanceToAdjacent);
-                    prev.set(adjacentCell, origin);
+                    prev.set(adjacentCell, current);
                 }
             }
         }
@@ -81,36 +81,36 @@ function getDijkstraPath(){
 
     while(set.size > 0){
         // Get the index cell with the min distance.
-        origin = getCellWithMinDistance(distance);
+        current = getCellWithMinDistance(distance);
 
         /**
-         * If origin is undefined. The remaining cells in Q set is inaccessible
+         * If current is undefined. The remaining cells in Q set is inaccessible
          * meaning its impossible for the path to even access the cell. 
          * getCellWithMinDistance() can't find a cell that is in Q and has a min value.
          * and therefore the set should be cleared. 
          */
-        if(!origin){
+        if(!current){
             set.clear(); break;
-        }else origin.turnCellGrey();
+        }else current.turnCellGrey();
 
-        // Remove origin from set Q.
+        // Remove current from set Q.
         set.forEach(function(cell){
-            if(origin.equals(cell)){
+            if(current.equals(cell)){
                 set.delete(cell);
             }
         })
 
         // for each neighbor v of u...
-        adjacentCells = origin.adjacentCells();
+        adjacentCells = current.adjacentCells();
 
         if(adjacentCells){
             for(i = 0; i < adjacentCells.length; i++){
                 adjacentCell = adjacentCells[i];
-                distanceToAdjacent = distance.get(origin) + getEuclideanDistance(origin, adjacentCell);
+                distanceToAdjacent = distance.get(current) + getEuclideanDistance(current, adjacentCell);
 
                 if(distanceToAdjacent < distance.get(adjacentCell)){
                     distance.set(adjacentCell, distanceToAdjacent);
-                    prev.set(adjacentCell, origin);
+                    prev.set(adjacentCell, current);
                 }
             }
         }
