@@ -68,7 +68,9 @@ class Queue {
       var qElement = new QElement(element, priority);
       var contain = false;
 
+
       for(var i = 0; i < this.items.length; i++){
+         if(this.items[i].element === element && this.items[i].priority === priority) break;
          if(this.items[i].priority > qElement.priority){
             this.items.splice(i, 0, qElement);
             contain = true;
