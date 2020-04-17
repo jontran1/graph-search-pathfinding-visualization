@@ -268,18 +268,18 @@ function getAStarShortestPath(){
 }
 
 
-function setupBestFirstSearch(){
-    setupBestFirstSearchHelper();
+function setupGreedyBestFirstSearch(){
+    setupGreedyBestFirstSearchHelper();
     currentAlgorithmObject.runFunction = function(){
-        if(playBestFirstSearchAnimation()){
+        if(playGreedyBestFirstSearchAnimation()){
             this.runFunction = function() {
-                getBestFirstSearchPath();
+                getGreedyBestFirstSearchPath();
             };
         }
     }
 }
 
-function setupBestFirstSearchHelper() {
+function setupGreedyBestFirstSearchHelper() {
     priorityQueue = new PriorityQueue();
     visited = new Set();
     prev = new Map();
@@ -293,7 +293,7 @@ function setupBestFirstSearchHelper() {
     }
 }
 
-function playBestFirstSearchAnimation(){
+function playGreedyBestFirstSearchAnimation(){
     if(!priorityQueue.isEmpty()){
         pqElement = priorityQueue.dequeue();
         if(!pqElement){
@@ -325,8 +325,8 @@ function playBestFirstSearchAnimation(){
     return false;
 }
 
-function getBestFirstSearchPath(){
-    setupBestFirstSearchHelper();
+function getGreedyBestFirstSearchPath(){
+    setupGreedyBestFirstSearchHelper();
     while(!priorityQueue.isEmpty()){
         pqElement = priorityQueue.dequeue();
         if(!pqElement){
