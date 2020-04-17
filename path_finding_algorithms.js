@@ -281,7 +281,43 @@ function getAStarShortestPath(){
     }
 }
 
+var priorityQueue;
+
 function setupBestFirstSearch(){
-    distance = new Map();
-    distance.set(startCell, 0);
+    priorityQueue = new PriorityQueue();
+    visited = new Set();
+    priorityQueue.enqueue(startCell, getEuclideanDistance(startCell, targetCell));
+
+    currentAlgorithmObject.runFunction = function(){
+        if(playBestFirstSearchAnimation()){
+            this.runFunction = function() {
+                console.log("IT WORKED");
+            };
+        }
+    }
+}
+
+function playBestFirstSearchAnimation(){
+    if(!priorityQueue.isEmpty()){
+        current = priorityQueue.dequeue().element;
+        if(!current){
+            console.log("Current no valid");
+            return false;
+        }
+        current.highlightCell();
+        visited.add(current);
+        if(current === targetCell){
+            console.log("Target found.");
+            return true;
+        }
+
+        adjacentCells = current.adjacentCells();
+        for(let i = 0; i < adjacentCells.length; i++){
+            adjacentCell = adjacentCells[i];
+            if(!visited.has(adjacentCell)){
+                priorityQueue.enqueue(adjacentCell, getEuclideanDistance(adjacentCell, targetCell));
+            }
+        }
+    }
+    return false;
 }

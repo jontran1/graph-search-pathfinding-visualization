@@ -54,6 +54,9 @@ function setup(){
     a_StarButton = createButton("A Star Algorithm");
     a_StarButton.mousePressed(setupA_Star);
 
+    BFSGreedyPathButton = createButton("Best First Search Path Finding");
+    BFSGreedyPathButton.mousePressed(setupBestFirstSearch);
+
     setupStartAndTarget();
 }
 
