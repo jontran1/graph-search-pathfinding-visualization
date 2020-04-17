@@ -38,7 +38,7 @@ function dijkstra_setup(){
 function dijkstra_path_finding(){
     if(set.size > 0){
         // Get the index cell with the min distance.
-        current = getCellWithMinDistance(distance);
+        current = getCellWithMinDistance(distance, set);
 
         /**
          * If origin is undefined. The remaining cells in Q set is inaccessible
@@ -81,7 +81,7 @@ function getDijkstraPath(){
 
     while(set.size > 0){
         // Get the index cell with the min distance.
-        current = getCellWithMinDistance(distance);
+        current = getCellWithMinDistance(distance, set);
 
         /**
          * If current is undefined. The remaining cells in Q set is inaccessible
@@ -133,10 +133,10 @@ function getEuclideanDistance(u, v){
 }
 
 /**
- * Uses a linear search to find the min dsitance. 
+ * Uses a linear search to find the min dsitance of a cell while also being in the set. 
  * Should consider getting better performance with a min heap data structure. 
  */
-function getCellWithMinDistance(map){
+function getCellWithMinDistance(map, set){
     tempMin = Number.MAX_VALUE;
     minCell = undefined;
     for(let[cell, dist] of map){
@@ -192,7 +192,7 @@ function setupA_StarHelper() {
 function aStarShortestPath(){
     if(set.size > 0){
         // Get the node with the lowest fScore value.
-        current = getCellWithMinDistance(fScore);
+        current = getCellWithMinDistance(fScore, set);
         if(!current)return;
         current.highlightCell();
         if(current === targetCell){
@@ -233,7 +233,7 @@ function getAStarShortestPath(){
 
     while(set.size > 0){
         // Get the node with the lowest fScore value.
-        current = getCellWithMinDistance(fScore);
+        current = getCellWithMinDistance(fScore, set);
         if(!current)return;
         current.turnCellGrey();
         if(current === targetCell){
