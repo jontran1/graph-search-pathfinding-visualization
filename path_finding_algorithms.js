@@ -269,23 +269,26 @@ function getAStarShortestPath(){
 
 
 function setupBestFirstSearch(){
-    priorityQueue = new PriorityQueue();
-    visited = new Set();
-    prev = new Map();
-    priorityQueue.enqueue(startCell, getEuclideanDistance(startCell, targetCell));
-
-    for(i = 0; i < grid.length; i++){
-        cell = grid[i];
-        if(!cell.isWall){
-            // Set all previous to null.
-            prev.set(cell, undefined);
-        }
-    }
+    setupBestFirstSearchHelper();
     currentAlgorithmObject.runFunction = function(){
         if(playBestFirstSearchAnimation()){
             this.runFunction = function() {
                 getPath(startCell, targetCell, prev);
             };
+        }
+    }
+}
+
+function setupBestFirstSearchHelper() {
+    priorityQueue = new PriorityQueue();
+    visited = new Set();
+    prev = new Map();
+    priorityQueue.enqueue(startCell, getEuclideanDistance(startCell, targetCell));
+    for (i = 0; i < grid.length; i++) {
+        cell = grid[i];
+        if (!cell.isWall) {
+            // Set all previous to null.
+            prev.set(cell, undefined);
         }
     }
 }
@@ -314,6 +317,10 @@ function playBestFirstSearchAnimation(){
         }
     }
     return false;
+}
+
+function getBestFirstSearchPath(){
+
 }
 
 // Highlights the path from start to target using the prev map.
