@@ -273,7 +273,7 @@ function setupBestFirstSearch(){
     currentAlgorithmObject.runFunction = function(){
         if(playBestFirstSearchAnimation()){
             this.runFunction = function() {
-                getPath(startCell, targetCell, prev);
+                getBestFirstSearchPath();
             };
         }
     }
@@ -295,11 +295,13 @@ function setupBestFirstSearchHelper() {
 
 function playBestFirstSearchAnimation(){
     if(!priorityQueue.isEmpty()){
-        current = priorityQueue.dequeue().element;
-        if(!current){
+        pqElement = priorityQueue.dequeue();
+        if(!pqElement){
             console.log("Current no valid");
-            return false;
+            return true;
         }
+        current = pqElement.element;
+
         current.highlightCell();
         visited.add(current);
         if(current === targetCell){
@@ -309,18 +311,50 @@ function playBestFirstSearchAnimation(){
 
         adjacentCells = current.adjacentCells();
         for(let i = 0; i < adjacentCells.length; i++){
+
             adjacentCell = adjacentCells[i];
             if(!visited.has(adjacentCell)){
                 priorityQueue.enqueue(adjacentCell, getEuclideanDistance(adjacentCell, targetCell));
                 prev.set(adjacentCell, current);
+            }else {
+                visited.add(adjacentCell);
             }
+
         }
     }
     return false;
 }
 
 function getBestFirstSearchPath(){
+    setupBestFirstSearchHelper();
+    while(!priorityQueue.isEmpty()){
+        pqElement = priorityQueue.dequeue();
+        if(!pqElement){
+            console.log("Current no valid");
+            return false;
+        }
+        current = pqElement.element;
 
+        current.turnCellGrey();
+        visited.add(current);
+        if(current === targetCell){
+            break;
+        }
+
+        adjacentCells = current.adjacentCells();
+        for(let i = 0; i < adjacentCells.length; i++){
+
+            adjacentCell = adjacentCells[i];
+            if(!visited.has(adjacentCell)){
+                priorityQueue.enqueue(adjacentCell, getEuclideanDistance(adjacentCell, targetCell));
+                prev.set(adjacentCell, current);
+            }else {
+                visited.add(adjacentCell);
+            }
+
+        }
+    }
+    getPath(startCell, targetCell, prev);
 }
 
 // Highlights the path from start to target using the prev map.
