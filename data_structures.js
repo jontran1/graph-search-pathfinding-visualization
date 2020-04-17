@@ -93,4 +93,16 @@ class Queue {
       return this.items[0];
    }
 
+   isEmpty(){
+      return this.length == 0;
+   }
+
+   printPriorityQueue(){
+      var str = "";
+      for(var i = 0; i < this.items.length; i++){
+         str += this.items[i].element + " ";
+      }
+      return str;
+   }
+
  }
