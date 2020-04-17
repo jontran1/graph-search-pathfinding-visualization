@@ -117,12 +117,7 @@ function getDijkstraPath(){
 
 
     if(Q.size == 0){
-        temp = targetCell;
-        while(temp !== startCell){
-            temp = prev.get(temp);
-            if(!temp) return;
-            if(temp !== startCell) temp.highlightCell();
-        }
+        getPath(startCell, targetCell, prev);
     }
 }
 
@@ -200,12 +195,7 @@ function aStarShortestPath(){
         if(!current)return;
         current.highlightCell();
         if(current === targetCell){
-            temp = targetCell;
-            while(temp !== startCell){
-                temp = prev.get(temp);
-                if(!temp) return;
-                if(temp !== startCell) temp.highlightCell();
-            }
+            getPath(startCell, targetCell, prev);
             return true;
         }
 
@@ -246,12 +236,7 @@ function getAStarShortestPath(){
         if(!current)return;
         current.turnCellGrey();
         if(current === targetCell){
-            temp = targetCell;
-            while(temp !== startCell){
-                temp = prev.get(temp);
-                if(!temp) return;
-                if(temp !== startCell) temp.highlightCell();
-            }
+            getPath(startCell, targetCell, prev);
             return;
         }
 
@@ -331,6 +316,7 @@ function playBestFirstSearchAnimation(){
     return false;
 }
 
+// Highlights the path from start to target using the prev map.
 function getPath(start, target, prev){
     temp = target;
     while(temp !== start){
