@@ -286,12 +286,20 @@ var priorityQueue;
 function setupBestFirstSearch(){
     priorityQueue = new PriorityQueue();
     visited = new Set();
+    prev = new Map();
     priorityQueue.enqueue(startCell, getEuclideanDistance(startCell, targetCell));
 
+    for(i = 0; i < grid.length; i++){
+        cell = grid[i];
+        if(!cell.isWall){
+            // Set all previous to null.
+            prev.set(cell, undefined);
+        }
+    }
     currentAlgorithmObject.runFunction = function(){
         if(playBestFirstSearchAnimation()){
             this.runFunction = function() {
-                console.log("IT WORKED");
+                getPath(startCell, targetCell, prev);
             };
         }
     }
@@ -316,8 +324,18 @@ function playBestFirstSearchAnimation(){
             adjacentCell = adjacentCells[i];
             if(!visited.has(adjacentCell)){
                 priorityQueue.enqueue(adjacentCell, getEuclideanDistance(adjacentCell, targetCell));
+                prev.set(adjacentCell, current);
             }
         }
     }
     return false;
+}
+
+function getPath(start, target, prev){
+    temp = target;
+    while(temp !== start){
+        temp = prev.get(temp);
+        if(!temp) return;
+        if(temp !== start) temp.highlightCell();
+    }
 }
