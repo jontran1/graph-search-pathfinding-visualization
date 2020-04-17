@@ -40,7 +40,7 @@ Notice how A star search is searching towards the target cell. Thats becuase A s
 
 To the left is Greedy Best First Search, to the right is A* Search. Greedy BFS uses a heuristic just like A*, but the only difference is that it merely chooses the next best step at the given location. It doesn't consider the other paths unlike A\* search. A\* on the other hand chooses the distance from the start node to the next plus (the next node to the target node) ~ f(n) = g(n) + h(n). A\* search will always pick the shortest f(n) solution to the goal. 
 
-![greedy_best_first_search_path](C:\Users\Jonathan\Desktop\graph-search-pathfinding-visualization\images_and_gifs\greedy_best_first_search_path.gif)
+![greedy_best_first_search_path](./images_and_gifs/greedy_best_first_search_path.gif)
 
 ## Interactivity
 
