@@ -1,12 +1,13 @@
 var distance;
 var prev;
-var Q;
+var set;
+var priorityQueue;
 
 /**
  * Sets up the dijkstra's algorthim data structures needed.
  */
 function dijkstra_setup(){
-    distance = new Map(); prev = new Map(); Q = new Set();
+    distance = new Map(); prev = new Map(); set = new Set();
 
     for(i = 0; i < grid.length; i++){
         
@@ -17,7 +18,7 @@ function dijkstra_setup(){
             // Set all previous to null.
             prev.set(cell, undefined);
             // Add cell to set.
-            Q.add(cell);
+            set.add(cell);
         }
 
     }
@@ -35,7 +36,7 @@ function dijkstra_setup(){
  * Performs the pathfinding from the startCell to the targetCell. 
  */
 function dijkstra_path_finding(){
-    if(Q.size > 0){
+    if(set.size > 0){
         // Get the index cell with the min distance.
         origin = getCellWithMinDistance(distance);
 
@@ -46,13 +47,13 @@ function dijkstra_path_finding(){
          * and therefore the set should be cleared. 
          */
         if(!origin){
-            Q.clear(); return;
+            set.clear(); return;
         }else origin.highlightCell();
 
         // Remove origin from set Q.
-        Q.forEach(function(cell){
+        set.forEach(function(cell){
             if(origin.equals(cell)){
-                Q.delete(cell);
+                set.delete(cell);
             }
         })
 
@@ -78,7 +79,7 @@ function dijkstra_path_finding(){
 function getDijkstraPath(){
     dijkstra_setup();
 
-    while(Q.size > 0){
+    while(set.size > 0){
         // Get the index cell with the min distance.
         origin = getCellWithMinDistance(distance);
 
@@ -89,13 +90,13 @@ function getDijkstraPath(){
          * and therefore the set should be cleared. 
          */
         if(!origin){
-            Q.clear(); break;
+            set.clear(); break;
         }else origin.turnCellGrey();
 
         // Remove origin from set Q.
-        Q.forEach(function(cell){
+        set.forEach(function(cell){
             if(origin.equals(cell)){
-                Q.delete(cell);
+                set.delete(cell);
             }
         })
 
@@ -116,7 +117,7 @@ function getDijkstraPath(){
     }
 
 
-    if(Q.size == 0){
+    if(set.size == 0){
         getPath(startCell, targetCell, prev);
     }
 }
@@ -139,7 +140,7 @@ function getCellWithMinDistance(map){
     tempMin = Number.MAX_VALUE;
     minCell = undefined;
     for(let[cell, dist] of map){
-        if(Q.has(cell) && dist < tempMin){
+        if(set.has(cell) && dist < tempMin){
             tempMin = dist;
             minCell = cell;
         }
@@ -168,7 +169,7 @@ function setupA_Star(){
 }
 
 function setupA_StarHelper() {
-    Q = new Set();
+    set = new Set();
     prev = new Map();
     gScore = new Map();
     fScore = new Map();
@@ -181,7 +182,7 @@ function setupA_StarHelper() {
             // Set all previous to null.
             prev.set(cell, undefined);
             // Add cell to set.
-            Q.add(cell);
+            set.add(cell);
         }
     }
     gScore.set(startCell, 0);
@@ -189,7 +190,7 @@ function setupA_StarHelper() {
 }
 
 function aStarShortestPath(){
-    if(Q.size > 0){
+    if(set.size > 0){
         // Get the node with the lowest fScore value.
         current = getCellWithMinDistance(fScore);
         if(!current)return;
@@ -200,9 +201,9 @@ function aStarShortestPath(){
         }
 
         // Remove origin from set Q.
-        Q.forEach(function(cell){
+        set.forEach(function(cell){
             if(current.equals(cell)){
-                Q.delete(cell);
+                set.delete(cell);
             }
         })
         adjacentCells = current.adjacentCells();
@@ -216,8 +217,8 @@ function aStarShortestPath(){
                     prev.set(adjacentCell, current);
                     gScore.set(adjacentCell, tentative_gScore);
                     fScore.set(adjacentCell, gScore.get(adjacentCell) + heuristic(adjacentCell));
-                    if(!Q.has(adjacentCell)){
-                        Q.add(adjacentCell);
+                    if(!set.has(adjacentCell)){
+                        set.add(adjacentCell);
                     }
                 }
             }
@@ -230,7 +231,7 @@ function aStarShortestPath(){
 function getAStarShortestPath(){
     setupA_StarHelper();
 
-    while(Q.size > 0){
+    while(set.size > 0){
         // Get the node with the lowest fScore value.
         current = getCellWithMinDistance(fScore);
         if(!current)return;
@@ -241,9 +242,9 @@ function getAStarShortestPath(){
         }
 
         // Remove origin from set Q.
-        Q.forEach(function(cell){
+        set.forEach(function(cell){
             if(current.equals(cell)){
-                Q.delete(cell);
+                set.delete(cell);
             }
         })
         adjacentCells = current.adjacentCells();
@@ -257,8 +258,8 @@ function getAStarShortestPath(){
                     prev.set(adjacentCell, current);
                     gScore.set(adjacentCell, tentative_gScore);
                     fScore.set(adjacentCell, gScore.get(adjacentCell) + heuristic(adjacentCell));
-                    if(!Q.has(adjacentCell)){
-                        Q.add(adjacentCell);
+                    if(!set.has(adjacentCell)){
+                        set.add(adjacentCell);
                     }
                 }
             }
@@ -266,7 +267,6 @@ function getAStarShortestPath(){
     }
 }
 
-var priorityQueue;
 
 function setupBestFirstSearch(){
     priorityQueue = new PriorityQueue();
