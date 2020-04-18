@@ -191,11 +191,10 @@ function aStarShortestPath(){
         // Get the node with the lowest fScore value.
         current = getCellWithMinDistance(fScore, set);
         if(!current)return;
+        
         current.highlightCell();
-        if(current === targetCell){
-            getPath(startCell, targetCell, prev);
-            return true;
-        }
+        if(current === targetCell) return true;
+    
 
         // Remove origin from set Q.
         set.forEach(function(cell){
