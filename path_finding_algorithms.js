@@ -357,7 +357,12 @@ function getGreedyBestFirstSearchPath(){
     getPath(startCell, targetCell, prev);
 }
 
-// Highlights the path from start to target using the prev map.
+/**
+ * 
+ * @param {Cell} start 
+ * @param {Cell} target 
+ * @param {Map} prev 
+ */
 function getPath(start, target, prev){
     temp = target;
     while(temp !== start){
