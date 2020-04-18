@@ -47,7 +47,7 @@ function dijkstra_path_finding(){
          * and therefore the set should be cleared. 
          */
         if(!current){
-            set.clear(); return;
+            return true;
         }else current.highlightCell();
 
         // Remove current from set Q.
@@ -90,7 +90,7 @@ function getDijkstraPath(){
          * and therefore the set should be cleared. 
          */
         if(!current){
-            set.clear(); break;
+            break;
         }else current.turnCellGrey();
 
         // Remove current from set Q.
@@ -116,10 +116,7 @@ function getDijkstraPath(){
         }
     }
 
-
-    if(set.size == 0){
-        getPath(startCell, targetCell, prev);
-    }
+    getPath(startCell, targetCell, prev);
 }
 
 /**
