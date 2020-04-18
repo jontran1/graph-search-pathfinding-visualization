@@ -19,7 +19,7 @@ var currentAlgorithmObject = {
     runFunction : function(){console.log("Its running")},
 
     setFunction: function(functionObject){
-        this.run = functionObject;
+        this.runFunction = functionObject;
     }
 }
 
