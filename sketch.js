@@ -66,15 +66,22 @@ function setup(){
  * on what is happening on screen. 
  */
 function draw(){
+    
+    updateGrid();
 
-    for(var i = 0; i < grid.length; i++){
-        grid[i].show();
-    }  
-      
     currentAlgorithmObject.runFunction();
     
     startCell.turnCellGreen();
     targetCell.turnCellRed();
+}
+
+/**
+ * Updates the grid. 
+ */
+function updateGrid(){
+    for(var i = 0; i < grid.length; i++){
+        grid[i].show();
+    }  
 }
 
 /**
