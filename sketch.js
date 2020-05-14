@@ -186,7 +186,6 @@ function setCell(cell){
  * Resets the entire game. 
  */
 function reset(){
-    playMazeGenerationAnimation = false;
     resetGrid();
     setupStartAndTarget();
     loop();
