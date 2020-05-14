@@ -39,23 +39,24 @@ function setup(){
 
     canvas.parent('sketch-holder');
 
-    makeMazeButton = createButton("Make Maze");
-    makeMazeButton.mousePressed(activateMazeGenerationDFS);
+    // Commented out testing buttons for now....
+    // makeMazeButton = createButton("Make Maze");
+    // makeMazeButton.mousePressed(activateMazeGenerationDFS);
 
-    dfsButton = createButton("DFS");
-    dfsButton.mousePressed(depthFirstSearchSetup);
+    // dfsButton = createButton("DFS");
+    // dfsButton.mousePressed(depthFirstSearchSetup);
 
-    bfsButton = createButton("BFS");
-    bfsButton.mousePressed(breadthFirstSearchSetup);
+    // bfsButton = createButton("BFS");
+    // bfsButton.mousePressed(breadthFirstSearchSetup);
 
-    dijkstraButton = createButton("Dijkstra Algorithm");
-    dijkstraButton.mousePressed(dijkstra_setup);
+    // dijkstraButton = createButton("Dijkstra Algorithm");
+    // dijkstraButton.mousePressed(dijkstra_setup);
 
-    a_StarButton = createButton("A Star Algorithm");
-    a_StarButton.mousePressed(setupA_Star);
+    // a_StarButton = createButton("A Star Algorithm");
+    // a_StarButton.mousePressed(setupA_Star);
 
-    BFSGreedyPathButton = createButton("Greedy Best First Search Path Finding");
-    BFSGreedyPathButton.mousePressed(setupGreedyBestFirstSearch);
+    // BFSGreedyPathButton = createButton("Greedy Best First Search Path Finding");
+    // BFSGreedyPathButton.mousePressed(setupGreedyBestFirstSearch);
 
     setupStartAndTarget();
 }
