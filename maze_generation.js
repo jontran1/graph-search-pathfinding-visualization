@@ -99,12 +99,3 @@ function blackOutGrid(){
         grid[i].isWall = true;
     }
 }
-
-/**
- * Resets entire grid. Clearing all walls.
- */
-function resetGrid(){
-    for(var i = 0; i < grid.length; i++){
-        grid[i].resetCell();
-    }
-}
