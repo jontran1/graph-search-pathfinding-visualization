@@ -24,3 +24,8 @@ const DFSButton = document.getElementById("DFSButton");
 DFSButton.addEventListener("click", () => {
     setVisualizeButtonAlgo(depthFirstSearchSetup);
 });
+
+const dijkstraShortestPathButton = document.getElementById("dijkstraShortestPathButton");
+dijkstraShortestPathButton.addEventListener("click", () => {
+    setVisualizeButtonAlgo(dijkstra_setup);
+});
