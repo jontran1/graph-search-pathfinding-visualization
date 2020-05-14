@@ -1,8 +1,8 @@
+var visualizeButton = document.getElementById("visualize");
 const resetButton = document.getElementById("reset");
 resetButton.addEventListener("click", reset);
 
 function setVisualizeButtonAlgo(algorithm) {
-    var visualizeButton = document.getElementById("visualize");
     var oldVisualizeButton = visualizeButton;
     visualizeButton = oldVisualizeButton.cloneNode(true);
     oldVisualizeButton.parentNode.replaceChild(visualizeButton, oldVisualizeButton);
