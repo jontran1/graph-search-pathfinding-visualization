@@ -29,3 +29,8 @@ const dijkstraShortestPathButton = document.getElementById("dijkstraShortestPath
 dijkstraShortestPathButton.addEventListener("click", () => {
     setVisualizeButtonAlgo(dijkstra_setup);
 });
+
+const aStarShortestPathButton = document.getElementById("aStarShortestPathButton");
+aStarShortestPathButton.addEventListener("click", () => {
+    setVisualizeButtonAlgo(setupA_Star);
+});
