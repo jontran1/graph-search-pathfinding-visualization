@@ -34,3 +34,8 @@ const aStarShortestPathButton = document.getElementById("aStarShortestPathButton
 aStarShortestPathButton.addEventListener("click", () => {
     setVisualizeButtonAlgo(setupA_Star);
 });
+
+const greedyBestFirstSearchButton = document.getElementById("greedyBestFirstSearchButton");
+greedyBestFirstSearchButton.addEventListener("click", () => {
+    setVisualizeButtonAlgo(setupGreedyBestFirstSearch);
+});
