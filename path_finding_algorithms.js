@@ -306,6 +306,8 @@ function playGreedyBestFirstSearchAnimation(){
         }
 
         adjacentCells = current.adjacentCells();
+        if(!adjacentCells) return;
+
         for(let i = 0; i < adjacentCells.length; i++){
 
             adjacentCell = adjacentCells[i];
@@ -338,6 +340,8 @@ function getGreedyBestFirstSearchPath(){
         }
 
         adjacentCells = current.adjacentCells();
+        if(!adjacentCells) return;
+
         for(let i = 0; i < adjacentCells.length; i++){
 
             adjacentCell = adjacentCells[i];
