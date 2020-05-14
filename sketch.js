@@ -188,7 +188,7 @@ function setCell(cell){
 function reset(){
     resetGrid();
     setupStartAndTarget();
-    loop();
+    currentAlgorithmObject.runFunction = function(){console.log("Its running")};
 }
 
 /**
