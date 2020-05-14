@@ -38,6 +38,7 @@ function Cell(i, j){
         this.isWall = false;
         this.green = false;
         this.red = false;
+        this.turnCellWhite();
     }
     
     /**
@@ -88,6 +89,11 @@ function Cell(i, j){
 
     this.turnCellGrey = function(){
         fill(200,200,200);
+        rect(x,y,w,w);
+    }
+
+    this.turnCellWhite = function(){
+        fill(255,255,255);
         rect(x,y,w,w);
     }
 
