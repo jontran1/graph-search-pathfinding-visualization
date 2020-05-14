@@ -79,7 +79,7 @@ function bredthFirstSearchSetupHelper() {
 function playBFSAnimation(){
     if(!queue.isEmpty()){
         current = queue.dequeue();
-        current.turnCellGrey();
+        current.highlightCell();
 
         if(current == targetCell){
             visited.push(current);
