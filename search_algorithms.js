@@ -39,7 +39,6 @@ function DFSIter(){
 function playDFSAnimation(){
     if(stack.length > 0){
         current = stack.pop();
-        current.turnCellGrey();
         current.highlightCell();
         if(current == targetCell){
             visited.push(current);
