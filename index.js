@@ -18,26 +18,31 @@ dfs_backtracking_maze_gen_button.addEventListener("click", () => {
 
 const BFSButton = document.getElementById("BFSButton");
 BFSButton.addEventListener("click", () => {
+    visualizeButton.style.background=getRandomColor();
     setVisualizeButtonAlgo(breadthFirstSearchSetup);
 });
 
 const DFSButton = document.getElementById("DFSButton");
 DFSButton.addEventListener("click", () => {
+    visualizeButton.style.background=getRandomColor();
     setVisualizeButtonAlgo(depthFirstSearchSetup);
 });
 
 const dijkstraShortestPathButton = document.getElementById("dijkstraShortestPathButton");
 dijkstraShortestPathButton.addEventListener("click", () => {
+    visualizeButton.style.background=getRandomColor();
     setVisualizeButtonAlgo(dijkstra_setup);
 });
 
 const aStarShortestPathButton = document.getElementById("aStarShortestPathButton");
 aStarShortestPathButton.addEventListener("click", () => {
+    visualizeButton.style.background=getRandomColor();
     setVisualizeButtonAlgo(setupA_Star);
 });
 
 const greedyBestFirstSearchButton = document.getElementById("greedyBestFirstSearchButton");
 greedyBestFirstSearchButton.addEventListener("click", () => {
+    visualizeButton.style.background=getRandomColor();
     setVisualizeButtonAlgo(setupGreedyBestFirstSearch);
 });
 
