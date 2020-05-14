@@ -12,6 +12,7 @@ function setVisualizeButtonAlgo(algorithm) {
 
 const dfs_backtracking_maze_gen_button = document.getElementById("dfs-backtracking-maze-gen");
 dfs_backtracking_maze_gen_button.addEventListener("click", () => {
+    visualizeButton.style.background=getRandomColor();
     setVisualizeButtonAlgo(activateMazeGenerationDFS);
 });
 
@@ -39,3 +40,12 @@ const greedyBestFirstSearchButton = document.getElementById("greedyBestFirstSear
 greedyBestFirstSearchButton.addEventListener("click", () => {
     setVisualizeButtonAlgo(setupGreedyBestFirstSearch);
 });
+
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
