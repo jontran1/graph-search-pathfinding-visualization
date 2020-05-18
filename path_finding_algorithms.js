@@ -371,3 +371,103 @@ function getPath(start, target, prev){
         if(temp !== start) temp.highlightCell();
     }
 }
+
+/**
+ * Sets up the dijkstra's algorthim data structures needed.
+ */
+
+ var bidirectionalPrev;
+ var biDistance;
+ var biSet;
+ var midPoint;
+
+function biDirectionalSetup(){
+    distance = new Map(); prev = new Map(); set = new Set();
+    biDistance = new Map(); bidirectionalPrev = new Map(); biSet = new Set();
+    visited = new Set();
+
+    for(i = 0; i < grid.length; i++){
+        
+        cell = grid[i];
+        if(!cell.isWall){
+            // Set all distances to the largest possible value.
+            distance.set(cell, Infinity);
+            biDistance.set(cell, Infinity);
+
+            // Set all previous to null.
+            prev.set(cell, undefined);
+            bidirectionalPrev.set(cell, undefined);
+            // Add cell to set.
+            set.add(cell);
+            biSet.add(cell);
+
+        }
+
+    }
+    // Set the starting startCell distance to 0.
+    distance.set(startCell, 0);
+    biDistance.set(targetCell, 0);
+
+    currentAlgorithmObject.runFunction = function(){
+        if(biDirectionalShortestPath(set, distance, prev) || 
+            biDirectionalShortestPath(biSet, biDistance, bidirectionalPrev)){
+                getPath(startCell, midPoint, prev);
+                console.log("getting path")
+                console.log(midPoint)
+                console.log(targetCell)
+                getPath(targetCell, midPoint, bidirectionalPrev);
+                console.log(bidirectionalPrev);
+                noLoop();
+        }
+    }
+}
+
+/**
+ * Performs the pathfinding from the startCell to the targetCell. 
+ */
+function biDirectionalShortestPath(set, distance, prev){
+    if(set.size > 0){
+        // Get the index cell with the min distance.
+        current = getCellWithMinDistance(distance, set);
+
+        /**
+         * If origin is undefined. The remaining cells in Q set is inaccessible
+         * meaning its impossible for the path to even access the cell. 
+         * getCellWithMinDistance() can't find a cell that is in Q and has a min value.
+         * and therefore the set should be cleared. 
+         */
+        if(!current){
+            return true;
+        }else current.highlightCell();
+
+        // Remove current from set Q.
+        set.forEach(function(cell){
+            if(current.equals(cell)){
+                set.delete(cell);
+            }
+        })
+
+        // for each neighbor v of u...
+        adjacentCells = current.adjacentCells();
+
+        if(adjacentCells){
+            for(i = 0; i < adjacentCells.length; i++){
+                adjacentCell = adjacentCells[i];
+                distanceToAdjacent = distance.get(current) + getEuclideanDistance(current, adjacentCell);
+
+                if(distanceToAdjacent < distance.get(adjacentCell)){
+                    distance.set(adjacentCell, distanceToAdjacent);
+                    prev.set(adjacentCell, current);
+                }
+            }
+        }
+        if(!visited.has(current)){
+            visited.add(current);
+        }else {
+            console.log("visited has current")
+            midPoint = current;
+            return true;
+        }
+    }
+    return false;
+}
