@@ -368,6 +368,7 @@ function getPath(start, target, prev){
     while(temp !== start){
         temp = prev.get(temp);
         if(!temp) return;
+        temp.highlightCell();
     }
 }
 
