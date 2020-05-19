@@ -46,6 +46,12 @@ greedyBestFirstSearchButton.addEventListener("click", () => {
     setVisualizeButtonAlgo(setupGreedyBestFirstSearch);
 });
 
+const biDirectionalSearchButton = document.getElementById("biDirectionalSearchButton");
+biDirectionalSearchButton.addEventListener("click", () => {
+    visualizeButton.style.background=getRandomColor();
+    visualizeButton.style.background=getRandomColor();
+    setVisualizeButtonAlgo(biDirectionalSetup);
+})
 function getRandomColor() {
     var letters = '0123456789ABCDEF';
     var color = '#';
