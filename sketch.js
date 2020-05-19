@@ -58,8 +58,8 @@ function setup(){
     // BFSGreedyPathButton = createButton("Greedy Best First Search Path Finding");
     // BFSGreedyPathButton.mousePressed(setupGreedyBestFirstSearch);
 
-    BFSGreedyPathButton = createButton("this is actually bi-directional search");
-    BFSGreedyPathButton.mousePressed(biDirectionalSetup);
+    // BFSGreedyPathButton = createButton("this is actually bi-directional search");
+    // BFSGreedyPathButton.mousePressed(biDirectionalSetup);
 
     setupStartAndTarget();
 }
