@@ -414,10 +414,12 @@ function biDirectionalSetup(){
                 this.runFunction = function() {
                     console.log("running")
                     getBiDirectionalShortestPath();
-                    getPath(startCell, midPoint, prev);
-                    getPath(targetCell, midPoint, bidirectionalPrev);   
-                    // The mid point during get path isn't highlighted..... I will fix this later.  
-                    midPoint.highlightCell();
+                    if(midPoint){
+                        getPath(startCell, midPoint, prev);
+                        getPath(targetCell, midPoint, bidirectionalPrev);   
+                        // The mid point during get path isn't highlighted..... I will fix this later.  
+                        midPoint.highlightCell();
+                    }
                 };
         }
     }
@@ -474,7 +476,7 @@ function biDirectionalShortestPath(set, distance, prev){
 }
 
 function getBiDirectionalShortestPath(){
-
+    midPoint = null;
     distance = new Map(); prev = new Map(); set = new Set();
     biDistance = new Map(); bidirectionalPrev = new Map(); biSet = new Set();
     visited = new Set();
@@ -500,8 +502,8 @@ function getBiDirectionalShortestPath(){
     // Set the starting startCell distance to 0.
     distance.set(startCell, 0);
     biDistance.set(targetCell, 0);
-
     while(set.size > 0 && biSet.size > 0){
+        
         // Get the index cell with the min distance.
         current = getCellWithMinDistance(distance, set);
         biCurrent = getCellWithMinDistance(biDistance, biSet);
