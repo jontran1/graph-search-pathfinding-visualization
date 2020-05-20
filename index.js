@@ -2,47 +2,49 @@ var visualizeButton = document.getElementById("visualize");
 const resetButton = document.getElementById("reset");
 resetButton.addEventListener("click", reset);
 
-function setVisualizeButtonAlgo(algorithm) {
+
+function setVisualizeButtonAlgo(algorithm, algorithmName) {
     var oldVisualizeButton = visualizeButton;
     visualizeButton = oldVisualizeButton.cloneNode(true);
     oldVisualizeButton.parentNode.replaceChild(visualizeButton, oldVisualizeButton);
     visualizeButton.addEventListener("click", algorithm);
     visualizeButton.style.background=getRandomColor();
+    visualizeButton.innerHTML = algorithmName;
 }
 
 const dfs_backtracking_maze_gen_button = document.getElementById("dfs-backtracking-maze-gen");
 dfs_backtracking_maze_gen_button.addEventListener("click", () => {
-    setVisualizeButtonAlgo(activateMazeGenerationDFS);
+    setVisualizeButtonAlgo(activateMazeGenerationDFS, dfs_backtracking_maze_gen_button.innerHTML);
 });
 
 const BFSButton = document.getElementById("BFSButton");
 BFSButton.addEventListener("click", () => {
-    setVisualizeButtonAlgo(breadthFirstSearchSetup);
+    setVisualizeButtonAlgo(breadthFirstSearchSetup, BFSButton.innerHTML);
 });
 
 const DFSButton = document.getElementById("DFSButton");
 DFSButton.addEventListener("click", () => {
-    setVisualizeButtonAlgo(depthFirstSearchSetup);
+    setVisualizeButtonAlgo(depthFirstSearchSetup, DFSButton.innerHTML);
 });
 
 const dijkstraShortestPathButton = document.getElementById("dijkstraShortestPathButton");
 dijkstraShortestPathButton.addEventListener("click", () => {
-    setVisualizeButtonAlgo(dijkstra_setup);
+    setVisualizeButtonAlgo(dijkstra_setup, dijkstraShortestPathButton.innerHTML);
 });
 
 const aStarShortestPathButton = document.getElementById("aStarShortestPathButton");
 aStarShortestPathButton.addEventListener("click", () => {
-    setVisualizeButtonAlgo(setupA_Star);
+    setVisualizeButtonAlgo(setupA_Star, aStarShortestPathButton.innerHTML);
 });
 
 const greedyBestFirstSearchButton = document.getElementById("greedyBestFirstSearchButton");
 greedyBestFirstSearchButton.addEventListener("click", () => {
-    setVisualizeButtonAlgo(setupGreedyBestFirstSearch);
+    setVisualizeButtonAlgo(setupGreedyBestFirstSearch, greedyBestFirstSearchButton.innerHTML);
 });
 
 const biDirectionalSearchButton = document.getElementById("biDirectionalSearchButton");
 biDirectionalSearchButton.addEventListener("click", () => {
-    setVisualizeButtonAlgo(biDirectionalSetup);
+    setVisualizeButtonAlgo(biDirectionalSetup, biDirectionalSearchButton.innerHTML);
 })
 function getRandomColor() {
     var letters = '0123456789ABCDEF';
