@@ -8,7 +8,6 @@ function setVisualizeButtonAlgo(algorithm, algorithmName) {
     visualizeButton = oldVisualizeButton.cloneNode(true);
     oldVisualizeButton.parentNode.replaceChild(visualizeButton, oldVisualizeButton);
     visualizeButton.addEventListener("click", algorithm);
-    visualizeButton.style.background=getRandomColor();
     visualizeButton.innerHTML = algorithmName;
 }
 
