@@ -26,7 +26,7 @@ var currentAlgorithmObject = {
 
 
 function setup(){
-    var canvas = createCanvas(500,500);
+    var canvas = createCanvas(600,600);
     cols = floor(width/w);
     rows = floor(height/w);
     frameRate(20);
