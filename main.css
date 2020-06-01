@@ -1,9 +1,15 @@
 /* Main container for the main elements */
-#sketch-holder {
+#sketch-holder, #algorithm-accordion{
     padding-top: 50px;
     text-align: center;
+    padding-left: 50px;
+    padding-right: 50px;
 }
 
 #visualize{
     margin-right: 10px;
+}
+
+#main-holder{
+    display: flex;
 }
