@@ -49,9 +49,7 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <a class="dropdown-item" id="BFSButton" href="#" data-toggle="collapse" data-target="#bfs-info-holder" aria-expanded="true" aria-controls="bfs-info-holder">Breadth First Search</a>
-                <a class="dropdown-item" id="DFSButton" href="#">Depth First Search</a>
-  
-    
+                <a class="dropdown-item" id="DFSButton" href="#" data-toggle="collapse" data-target="#dfs-info-holder" aria-expanded="true" aria-controls="dfs-info-holder">Depth First Search</a>    
               </div>
             </li>
 
@@ -94,10 +92,10 @@
         <div class="card">
           <div id="bfs-info-holder" class="collapse" data-parent="#algorithm-accordion">
             <div class="card-body">
-              <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+              <div id="bfs-carousel" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
-                  <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                  <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                  <li data-target="#bfs-carousel" data-slide-to="0" class="active"></li>
+                  <li data-target="#bfs-carousel" data-slide-to="1"></li>
                 </ol>
                 <div class="carousel-inner">
                   <div class="image is-4by3
@@ -110,11 +108,11 @@
                   </div>
                 </div>
                 
-                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <a class="carousel-control-prev" href="#bfs-carousel" role="button" data-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                   <span class="sr-only">Previous</span>
                 </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <a class="carousel-control-next" href="#bfs-carousel" role="button" data-slide="next">
                   <span class="carousel-control-next-icon" aria-hidden="true"></span>
                   <span class="sr-only">Next</span>
                 </a>
@@ -135,6 +133,54 @@
               </p>
               </div>
           </div>
+
+          <div class="card">
+            <div id="dfs-info-holder" class="collapse" data-parent="#algorithm-accordion">
+              <div class="card-body">
+                <div id="dfs-carousel" class="carousel slide" data-ride="carousel">
+                  <ol class="carousel-indicators">
+                    <li data-target="#dfs-carousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#dfs-carousel" data-slide-to="1"></li>
+                  </ol>
+                  <div class="carousel-inner">
+                    <div class="image is-4by3
+                    carousel-item active">
+                      <img src="img/dfs-2.gif" alt="First slide">
+                    </div>
+                    <div class="image is-4by3
+                    carousel-item">
+                      <img src="img/dfs-1.gif" alt="Second slide">
+                    </div>
+                  </div>
+                  
+                  <a class="carousel-control-prev" href="#dfs-carousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#dfs-carousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </div>
+                <p class="card-text">
+                  <p><strong>Time Complexity</strong>: O(b^d)</p>
+                  <p><strong>Space Complexity</strong>: O(b^d)</p>
+                  <p>
+                    Depth-first search is an algoirthm for traversing or searching a graph or tree structure. It is a 
+                    blind search (uninformed) menaing the algorithm searches blindly through out the graph until the 
+                    target node is found. It uses the opposite strategy of breadth-first search. Meaning, it explores the 
+                    nodes depth first.
+                  </p>
+                  <p><strong>When would you use this?</strong>: If for some magical reason you believe the target node to be 
+                    deep within the data structure, DFS would be a good choice. This algorithm is <strong>complete</strong>, so 
+                    eventually DFS will find the target node. However, space complexity becomes a problem because each node 
+                    is requried in memory for the search to be perform. </p>
+                </p>
+                </div>
+            </div>
+          </div>
+
+
         </div>
       </div>
 
