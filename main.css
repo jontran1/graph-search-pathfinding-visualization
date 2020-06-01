@@ -6,10 +6,19 @@
     padding-right: 50px;
 }
 
+p{
+    text-align: left;
+}
+
 #visualize{
     margin-right: 10px;
 }
 
 #main-holder{
     display: flex;
+}
+
+img {
+    width:  300px;
+    height: 300px;
 }
