@@ -45,6 +45,27 @@ const biDirectionalSearchButton = document.getElementById("biDirectionalSearchBu
 biDirectionalSearchButton.addEventListener("click", () => {
     setVisualizeButtonAlgo(biDirectionalSetup, biDirectionalSearchButton.innerHTML);
 })
+
+const smallGridRadioButton = document.getElementById("smallGridRadioButton");
+smallGridRadioButton.addEventListener("click", () => {
+    drawCanvas(400);
+    reset();
+});
+
+const mediumGridRadioButton = document.getElementById("mediumGridRadioButton");
+mediumGridRadioButton.addEventListener("click", () => {
+    drawCanvas(600);
+    reset();
+});
+
+const largeGridRadioButton = document.getElementById("largeGridRadioButton");
+largeGridRadioButton.addEventListener("click", () => {
+    drawCanvas(800);
+    reset();
+});
+
+
+
 function getRandomColor() {
     var letters = '0123456789ABCDEF';
     var color = '#';
