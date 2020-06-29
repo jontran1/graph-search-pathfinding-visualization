@@ -27,16 +27,9 @@ var currentAlgorithmObject = {
 
 function setup(){
     var canvas = createCanvas(500,500);
-    cols = floor(width/w);
-    rows = floor(height/w);
     frameRate(20);
-    for(var j = 0; j < rows; j++){
-        for(var i = 0; i < cols; i++){
-            var cell = new Cell(i, j);
-            grid.push(cell);
-        }
-    }
-
+    drawCanvas(600);
+    
     canvas.parent('sketch-holder');
 
     // Commented out testing buttons for now....
@@ -76,6 +69,26 @@ function draw(){
     
     startCell.turnCellGreen();
     targetCell.turnCellRed();
+}
+
+/**
+ * Draws an nxn grid using the argument n. 
+ * And sets up the new start and target nodes.
+ * @param {Number} n 
+ */
+function drawCanvas(n){
+    resizeCanvas(n, n);
+    cols = floor(width/w);
+    rows = floor(height/w);
+    grid = [];
+    for(var j = 0; j < rows; j++){
+        for(var i = 0; i < cols; i++){
+            var cell = new Cell(i, j);
+            grid.push(cell);
+        }
+    }
+
+    setupStartAndTarget();
 }
 
 /**
