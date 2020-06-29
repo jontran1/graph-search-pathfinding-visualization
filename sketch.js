@@ -32,25 +32,26 @@ function setup(){
     
     canvas.parent('sketch-holder');
 
-    small = createButton("small canvas");
-    small.mousePressed(() => {
-        drawCanvas(400);
-        reset();
-    });
+    // Test buttons
 
-    med = createButton("med canvas");
-    med.mousePressed(() => {
-        drawCanvas(600);
-        reset();
-    });
+    // small = createButton("small canvas");
+    // small.mousePressed(() => {
+    //     drawCanvas(400);
+    //     reset();
+    // });
+
+    // med = createButton("med canvas");
+    // med.mousePressed(() => {
+    //     drawCanvas(600);
+    //     reset();
+    // });
 
     
-    large = createButton("large canvas");
-    large.mousePressed(() => {
-        drawCanvas(800);
-        reset();
-    });
-
+    // large = createButton("large canvas");
+    // large.mousePressed(() => {
+    //     drawCanvas(800);
+    //     reset();
+    // });
 
     // Commented out testing buttons for now....
     // makeMazeButton = createButton("Make Maze");
