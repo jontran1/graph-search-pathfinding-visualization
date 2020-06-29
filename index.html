@@ -74,8 +74,22 @@
               </div>
             </li>
 
-            <a class="btn btn-primary" id='visualize' href="#">Visualize <span class="sr-only">(current)</span></a>
-            <a class="btn btn-danger" id='reset' href="#">Reset <span class="sr-only">(current)</span></a>
+            <span >
+              <a class="btn btn-primary" id='visualize' href="#">Visualize <span class="sr-only">(current)</span></a>
+              <a class="btn btn-danger" id='reset' href="#">Reset <span class="sr-only">(current)</span></a>
+  
+              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary active">
+                  <input type="radio" name="options" id="smallGridRadioButton" autocomplete="off"> Small
+                </label>
+                <label class="btn btn-secondary">
+                  <input type="radio" name="options" id="mediumGridRadioButton" autocomplete="off" checked> Medium
+                </label>
+                <label class="btn btn-secondary">
+                  <input type="radio" name="options" id="largeGridRadioButton" autocomplete="off"> Large
+                </label>
+              </div>
+            </span>
 
           </ul>
 
