@@ -227,10 +227,14 @@ function aStarShortestPath() {
                     fScore.set(adjacentCell, gScore.get(adjacentCell) + heuristic(adjacentCell));
                     if (!set.has(adjacentCell)) {
                         set.add(adjacentCell);
+                        adjacentCell.turnCellTurquoise();
+                    } else {
+                        adjacentCell.turnCellOrange();
                     }
                 }
             }
         }
+
         return false;
     }
     return true;
@@ -272,6 +276,9 @@ function getAStarShortestPath() {
                     fScore.set(adjacentCell, gScore.get(adjacentCell) + heuristic(adjacentCell));
                     if (!set.has(adjacentCell)) {
                         set.add(adjacentCell);
+                        adjacentCell.turnCellTurquoise();
+                    } else {
+                        adjacentCell.turnCellOrange();
                     }
                 }
             }

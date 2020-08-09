@@ -6,7 +6,7 @@ var targetCell;
 
 var stack;
 var visited;
-var queue;  
+var queue;
 
 var mouseOnTarget = false;
 var draggingTargetCell = false;
@@ -15,21 +15,22 @@ var mouseOnStartingCell = false;
 var draggingStartingCell = false;
 
 var currentAlgorithmObject = {
-    
-    runFunction : function(){console.log("Its running")},
 
-    setFunction: function(functionObject){
+    runFunction: function () { console.log("Its running") },
+
+    setFunction: function (functionObject) {
         this.runFunction = functionObject;
     }
 }
 
 
 
-function setup(){
-    var canvas = createCanvas(500,500);
+function setup() {
+    noStroke();
+    var canvas = createCanvas(500, 500);
     frameRate(20);
     drawCanvas(600);
-    
+
     canvas.parent('sketch-holder');
 
     // Test buttons
@@ -46,7 +47,7 @@ function setup(){
     //     reset();
     // });
 
-    
+
     // large = createButton("large canvas");
     // large.mousePressed(() => {
     //     drawCanvas(800);
@@ -82,12 +83,12 @@ function setup(){
  * Continously is called by p5.js to constantly update the user
  * on what is happening on screen. 
  */
-function draw(){
-    
+function draw() {
+
     updateGrid();
 
     currentAlgorithmObject.runFunction();
-    
+
     startCell.turnCellGreen();
     targetCell.turnCellRed();
 }
@@ -97,13 +98,13 @@ function draw(){
  * And sets up the new start and target nodes.
  * @param {Number} n 
  */
-function drawCanvas(n){
+function drawCanvas(n) {
     resizeCanvas(n, n);
-    cols = floor(width/w);
-    rows = floor(height/w);
+    cols = floor(width / w);
+    rows = floor(height / w);
     grid = [];
-    for(var j = 0; j < rows; j++){
-        for(var i = 0; i < cols; i++){
+    for (var j = 0; j < rows; j++) {
+        for (var i = 0; i < cols; i++) {
             var cell = new Cell(i, j);
             grid.push(cell);
         }
@@ -115,10 +116,10 @@ function drawCanvas(n){
 /**
  * Updates the grid. 
  */
-function updateGrid(){
-    for(var i = 0; i < grid.length; i++){
+function updateGrid() {
+    for (var i = 0; i < grid.length; i++) {
         grid[i].show();
-    }  
+    }
 }
 
 /**
@@ -126,13 +127,13 @@ function updateGrid(){
  * If the user clicks on a start cell or target, the function simply
  * returns. 
  */
-function mouseClicked(){
+function mouseClicked() {
 
     let cell = grid[mouseIndex(mouseX, mouseY)];
 
-    if(!cell) return;
-    if(cell == targetCell || cell == startCell)return;
-    if(draggingTargetCell || draggingStartingCell) return;
+    if (!cell) return;
+    if (cell == targetCell || cell == startCell) return;
+    if (draggingTargetCell || draggingStartingCell) return;
     cell.isWall = !cell.isWall;
 }
 
@@ -141,64 +142,64 @@ function mouseClicked(){
  * If either of these cells are dragged over a wall, the function simply returns.
  * Else if the the startCell or targetCell is moved to a new location.
  */
-function mouseDragged(){
+function mouseDragged() {
     let cell = grid[mouseIndex(mouseX, mouseY)];
-    if(!cell){
+    if (!cell) {
         return;
     }
-    if(cell.isWall){
+    if (cell.isWall) {
         return;
     }
-    if(draggingTargetCell && cell != startCell){
+    if (draggingTargetCell && cell != startCell) {
         setCell(targetCell);
         return;
     }
-    if(draggingStartingCell && cell != targetCell){
+    if (draggingStartingCell && cell != targetCell) {
         setCell(startCell);
         return;
     }
-    setTimeout((cell) => {cell.isWall = !cell.isWall;}, 10, cell);
-    
+    setTimeout((cell) => { cell.isWall = !cell.isWall; }, 10, cell);
+
 }
 
 /**
  * Everytime the user's performs a mouse click hold on a cell.
  * 
  */
-function mousePressed(){
-    if(mouseIsOnTarget()){
+function mousePressed() {
+    if (mouseIsOnTarget()) {
         draggingTargetCell = true;
     }
-    if(mouseIsOnStartingCell()){
+    if (mouseIsOnStartingCell()) {
         draggingStartingCell = true;
     }
 }
 
-function mouseReleased(){
+function mouseReleased() {
     let cell = grid[mouseIndex(mouseX, mouseY)];
-    
-    if(!cell) return;
 
-    if(draggingTargetCell && cell != startCell && !cell.isWall){
-        if(setCell(targetCell)){
-            draggingTargetCell=false;
+    if (!cell) return;
+
+    if (draggingTargetCell && cell != startCell && !cell.isWall) {
+        if (setCell(targetCell)) {
+            draggingTargetCell = false;
         }
     }
-    if(draggingStartingCell && cell != targetCell && !cell.isWall){
-        if(setCell(startCell)){
-            draggingStartingCell=false;
+    if (draggingStartingCell && cell != targetCell && !cell.isWall) {
+        if (setCell(startCell)) {
+            draggingStartingCell = false;
         }
     }
-  }
-  
+}
 
-function setupStartAndTarget(){
-    if(startCell){startCell.resetCell();}
-    if(targetCell){targetCell.resetCell();}
 
-    startCell = grid[index(1,1)];
+function setupStartAndTarget() {
+    if (startCell) { startCell.resetCell(); }
+    if (targetCell) { targetCell.resetCell(); }
+
+    startCell = grid[index(1, 1)];
     startCell.green = true;
-    targetCell = grid[index(rows-1,cols-1)];
+    targetCell = grid[index(rows - 1, cols - 1)];
     targetCell.red = true;
 }
 
@@ -206,22 +207,22 @@ function setupStartAndTarget(){
  * Setting the targetCell and the startCell.
  * @param {Cell} cell 
  */
-function setCell(cell){
+function setCell(cell) {
     var index = mouseIndex(mouseX, mouseY);
 
-    if(index >= 0){
-        if(cell == targetCell){
+    if (index >= 0) {
+        if (cell == targetCell) {
             targetCell.resetCell();
             targetCell = grid[index];
-            targetCell.red = true; 
-            return true; 
-        }else if(cell == startCell){
+            targetCell.red = true;
+            return true;
+        } else if (cell == startCell) {
             startCell.resetCell();
             startCell = grid[index];
-            startCell.green = true; 
+            startCell.green = true;
             return true;
         }
- 
+
     }
     return false;
 }
@@ -229,17 +230,17 @@ function setCell(cell){
 /**
  * Resets the entire game. 
  */
-function reset(){
+function reset() {
     resetGrid();
     setupStartAndTarget();
-    currentAlgorithmObject.runFunction = function(){console.log("Its running")};
+    currentAlgorithmObject.runFunction = function () { console.log("Its running") };
 }
 
 /**
  * Resets entire grid. Clearing all walls.
  */
-function resetGrid(){
-    for(var i = 0; i < grid.length; i++){
+function resetGrid() {
+    for (var i = 0; i < grid.length; i++) {
         grid[i].resetCell();
     }
 }
@@ -248,8 +249,8 @@ function resetGrid(){
 /**
  * Checks if mouse is on targetCell.
  */
-function mouseIsOnTarget(){
-    if(grid[mouseIndex(mouseX, mouseY)] == targetCell){
+function mouseIsOnTarget() {
+    if (grid[mouseIndex(mouseX, mouseY)] == targetCell) {
         return true;
     }
     return false;
@@ -258,22 +259,22 @@ function mouseIsOnTarget(){
 /**
  * Checks if mouse is on startingCell.
  */
-function mouseIsOnStartingCell(){
-    if(grid[mouseIndex(mouseX, mouseY)] == startCell){
+function mouseIsOnStartingCell() {
+    if (grid[mouseIndex(mouseX, mouseY)] == startCell) {
         return true;
     }
     return false;
 }
 
 
-function dragTarget(){
-    if(grid[mouseIndex(mouseX, mouseY)] == targetCell && mouseOnTarget){
+function dragTarget() {
+    if (grid[mouseIndex(mouseX, mouseY)] == targetCell && mouseOnTarget) {
         return true;
     }
     return false;
 }
 
-Array.min = function(array){
+Array.min = function (array) {
     return Math.min.apply(Math, array);
 }
 
