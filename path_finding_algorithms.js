@@ -6,13 +6,13 @@ var priorityQueue;
 /**
  * Sets up the dijkstra's algorthim data structures needed.
  */
-function dijkstra_setup(){
+function dijkstra_setup() {
     distance = new Map(); prev = new Map(); set = new Set();
 
-    for(i = 0; i < grid.length; i++){
-        
+    for (i = 0; i < grid.length; i++) {
+
         cell = grid[i];
-        if(!cell.isWall){
+        if (!cell.isWall) {
             // Set all distances to the largest possible value.
             distance.set(cell, Infinity);
             // Set all previous to null.
@@ -25,8 +25,8 @@ function dijkstra_setup(){
     // Set the starting startCell distance to 0.
     distance.set(startCell, 0);
 
-    currentAlgorithmObject.runFunction = function(){
-        if(dijkstra_path_finding()){
+    currentAlgorithmObject.runFunction = function () {
+        if (dijkstra_path_finding()) {
             getDijkstraPath();
         }
     }
@@ -35,8 +35,8 @@ function dijkstra_setup(){
 /**
  * Performs the pathfinding from the startCell to the targetCell. 
  */
-function dijkstra_path_finding(){
-    if(set.size > 0){
+function dijkstra_path_finding() {
+    if (set.size > 0) {
         // Get the index cell with the min distance.
         current = getCellWithMinDistance(distance, set);
 
@@ -46,13 +46,13 @@ function dijkstra_path_finding(){
          * getCellWithMinDistance() can't find a cell that is in Q and has a min value.
          * and therefore the set should be cleared. 
          */
-        if(!current){
+        if (!current) {
             return true;
-        }else current.highlightCell();
+        } else current.highlightCell();
 
         // Remove current from set Q.
-        set.forEach(function(cell){
-            if(current.equals(cell)){
+        set.forEach(function (cell) {
+            if (current.equals(cell)) {
                 set.delete(cell);
             }
         })
@@ -60,12 +60,12 @@ function dijkstra_path_finding(){
         // for each neighbor v of u...
         adjacentCells = current.adjacentCells();
 
-        if(adjacentCells){
-            for(i = 0; i < adjacentCells.length; i++){
+        if (adjacentCells) {
+            for (i = 0; i < adjacentCells.length; i++) {
                 adjacentCell = adjacentCells[i];
                 distanceToAdjacent = distance.get(current) + getEuclideanDistance(current, adjacentCell);
 
-                if(distanceToAdjacent < distance.get(adjacentCell)){
+                if (distanceToAdjacent < distance.get(adjacentCell)) {
                     distance.set(adjacentCell, distanceToAdjacent);
                     prev.set(adjacentCell, current);
                 }
@@ -76,10 +76,15 @@ function dijkstra_path_finding(){
     return true;
 }
 
-function getDijkstraPath(){
+/**
+ * This is Dijkstra's path method, used after the animation is 
+ * complete.
+ * Allows for constant updates to the grid. 
+ */
+function getDijkstraPath() {
     dijkstra_setup();
 
-    while(set.size > 0){
+    while (set.size > 0) {
         // Get the index cell with the min distance.
         current = getCellWithMinDistance(distance, set);
 
@@ -89,13 +94,13 @@ function getDijkstraPath(){
          * getCellWithMinDistance() can't find a cell that is in Q and has a min value.
          * and therefore the set should be cleared. 
          */
-        if(!current){
+        if (!current) {
             break;
-        }else current.turnCellGrey();
+        } else current.turnCellGrey();
 
         // Remove current from set Q.
-        set.forEach(function(cell){
-            if(current.equals(cell)){
+        set.forEach(function (cell) {
+            if (current.equals(cell)) {
                 set.delete(cell);
             }
         })
@@ -103,12 +108,12 @@ function getDijkstraPath(){
         // for each neighbor v of u...
         adjacentCells = current.adjacentCells();
 
-        if(adjacentCells){
-            for(i = 0; i < adjacentCells.length; i++){
+        if (adjacentCells) {
+            for (i = 0; i < adjacentCells.length; i++) {
                 adjacentCell = adjacentCells[i];
                 distanceToAdjacent = distance.get(current) + getEuclideanDistance(current, adjacentCell);
 
-                if(distanceToAdjacent < distance.get(adjacentCell)){
+                if (distanceToAdjacent < distance.get(adjacentCell)) {
                     distance.set(adjacentCell, distanceToAdjacent);
                     prev.set(adjacentCell, current);
                 }
@@ -125,19 +130,19 @@ function getDijkstraPath(){
  * @param {Cell} u 
  * @param {Cell} v 
  */
-function getEuclideanDistance(u, v){
-    return Math.sqrt(Math.pow(u.i - v.i, 2) + Math.pow(u.j - v.j,2));
+function getEuclideanDistance(u, v) {
+    return Math.sqrt(Math.pow(u.i - v.i, 2) + Math.pow(u.j - v.j, 2));
 }
 
 /**
  * Uses a linear search to find the min dsitance of a cell while also being in the set. 
  * Should consider getting better performance with a min heap data structure. 
  */
-function getCellWithMinDistance(map, set){
+function getCellWithMinDistance(map, set) {
     tempMin = Number.MAX_VALUE;
     minCell = undefined;
-    for(let[cell, dist] of map){
-        if(set.has(cell) && dist < tempMin){
+    for (let [cell, dist] of map) {
+        if (set.has(cell) && dist < tempMin) {
             tempMin = dist;
             minCell = cell;
         }
@@ -145,20 +150,23 @@ function getCellWithMinDistance(map, set){
     return minCell;
 }
 
-function heuristic(cell){
-    if(targetCell && cell) return getEuclideanDistance(cell, targetCell);
+function heuristic(cell) {
+    if (targetCell && cell) return getEuclideanDistance(cell, targetCell);
     return undefined;
 }
 
 var gScore;
 var fScore;
 
-function setupA_Star(){
+/**
+ * A helper method to set up A*'s data structures.
+ */
+function setupA_Star() {
     setupA_StarHelper();
 
-    currentAlgorithmObject.runFunction = function(){
-        if(aStarShortestPath()){
-            this.runFunction = function() {
+    currentAlgorithmObject.runFunction = function () {
+        if (aStarShortestPath()) {
+            this.runFunction = function () {
                 getAStarShortestPath()
             };
         }
@@ -186,34 +194,38 @@ function setupA_StarHelper() {
     fScore.set(startCell, heuristic(startCell));
 }
 
-function aStarShortestPath(){
-    if(set.size > 0){
+/**
+ * A* shortest path algorthim animation. 
+ * Each iteration is showed on the grid.
+ */
+function aStarShortestPath() {
+    if (set.size > 0) {
         // Get the node with the lowest fScore value.
         current = getCellWithMinDistance(fScore, set);
-        if(!current)return;
-        
+        if (!current) return;
+
         current.highlightCell();
-        if(current === targetCell) return true;
-    
+        if (current === targetCell) return true;
+
 
         // Remove origin from set Q.
-        set.forEach(function(cell){
-            if(current.equals(cell)){
+        set.forEach(function (cell) {
+            if (current.equals(cell)) {
                 set.delete(cell);
             }
         })
         adjacentCells = current.adjacentCells();
-        
-        if(adjacentCells){
-            for(i = 0; i < adjacentCells.length; i++){
+
+        if (adjacentCells) {
+            for (i = 0; i < adjacentCells.length; i++) {
                 adjacentCell = adjacentCells[i];
                 tentative_gScore = gScore.get(current) + getEuclideanDistance(current, adjacentCell);
 
-                if(tentative_gScore < gScore.get(adjacentCell)){
+                if (tentative_gScore < gScore.get(adjacentCell)) {
                     prev.set(adjacentCell, current);
                     gScore.set(adjacentCell, tentative_gScore);
                     fScore.set(adjacentCell, gScore.get(adjacentCell) + heuristic(adjacentCell));
-                    if(!set.has(adjacentCell)){
+                    if (!set.has(adjacentCell)) {
                         set.add(adjacentCell);
                     }
                 }
@@ -224,37 +236,41 @@ function aStarShortestPath(){
     return true;
 }
 
-function getAStarShortestPath(){
+/**
+ * This A* method is called after the animation is finished.
+ * Allows for constant updates to the grid.
+ */
+function getAStarShortestPath() {
     setupA_StarHelper();
 
-    while(set.size > 0){
+    while (set.size > 0) {
         // Get the node with the lowest fScore value.
         current = getCellWithMinDistance(fScore, set);
-        if(!current)return;
+        if (!current) return;
         current.turnCellGrey();
-        if(current === targetCell){
+        if (current === targetCell) {
             getPath(startCell, targetCell, prev);
             return;
         }
 
         // Remove origin from set Q.
-        set.forEach(function(cell){
-            if(current.equals(cell)){
+        set.forEach(function (cell) {
+            if (current.equals(cell)) {
                 set.delete(cell);
             }
         })
         adjacentCells = current.adjacentCells();
-        
-        if(adjacentCells){
-            for(i = 0; i < adjacentCells.length; i++){
+
+        if (adjacentCells) {
+            for (i = 0; i < adjacentCells.length; i++) {
                 adjacentCell = adjacentCells[i];
                 tentative_gScore = gScore.get(current) + getEuclideanDistance(current, adjacentCell);
 
-                if(tentative_gScore < gScore.get(adjacentCell)){
+                if (tentative_gScore < gScore.get(adjacentCell)) {
                     prev.set(adjacentCell, current);
                     gScore.set(adjacentCell, tentative_gScore);
                     fScore.set(adjacentCell, gScore.get(adjacentCell) + heuristic(adjacentCell));
-                    if(!set.has(adjacentCell)){
+                    if (!set.has(adjacentCell)) {
                         set.add(adjacentCell);
                     }
                 }
@@ -263,18 +279,25 @@ function getAStarShortestPath(){
     }
 }
 
-
-function setupGreedyBestFirstSearch(){
+/**
+ * Sets up all the needed datastructures for 
+ * Bi-Directional Search.
+ */
+function setupGreedyBestFirstSearch() {
     setupGreedyBestFirstSearchHelper();
-    currentAlgorithmObject.runFunction = function(){
-        if(playGreedyBestFirstSearchAnimation()){
-            this.runFunction = function() {
+    currentAlgorithmObject.runFunction = function () {
+        if (playGreedyBestFirstSearchAnimation()) {
+            this.runFunction = function () {
                 getGreedyBestFirstSearchPath();
             };
         }
     }
 }
 
+/**
+ * Helper method for setting up data structures for 
+ * Greedy Best First Search.
+ */
 function setupGreedyBestFirstSearchHelper() {
     priorityQueue = new PriorityQueue();
     visited = new Set();
@@ -289,10 +312,15 @@ function setupGreedyBestFirstSearchHelper() {
     }
 }
 
-function playGreedyBestFirstSearchAnimation(){
-    if(!priorityQueue.isEmpty()){
+/**
+ * Animation method for Greedy Best First Search 
+ * Plays out each iteration to the user. 
+ * Is called in p5.js draw() function.
+ */
+function playGreedyBestFirstSearchAnimation() {
+    if (!priorityQueue.isEmpty()) {
         pqElement = priorityQueue.dequeue();
-        if(!pqElement){
+        if (!pqElement) {
             console.log("Current no valid");
             return true;
         }
@@ -300,21 +328,21 @@ function playGreedyBestFirstSearchAnimation(){
 
         current.highlightCell();
         visited.add(current);
-        if(current === targetCell){
+        if (current === targetCell) {
             console.log("Target found.");
             return true;
         }
 
         adjacentCells = current.adjacentCells();
-        if(!adjacentCells) return;
+        if (!adjacentCells) return;
 
-        for(let i = 0; i < adjacentCells.length; i++){
+        for (let i = 0; i < adjacentCells.length; i++) {
 
             adjacentCell = adjacentCells[i];
-            if(!visited.has(adjacentCell)){
+            if (!visited.has(adjacentCell)) {
                 priorityQueue.enqueue(adjacentCell, getEuclideanDistance(adjacentCell, targetCell));
                 prev.set(adjacentCell, current);
-            }else {
+            } else {
                 visited.add(adjacentCell);
             }
 
@@ -323,11 +351,16 @@ function playGreedyBestFirstSearchAnimation(){
     return false;
 }
 
-function getGreedyBestFirstSearchPath(){
+/**
+ * Greedy Best First Search algorthim. Used once the 
+ * animation is finished. This method allows constant 
+ * updates to the grid.
+ */
+function getGreedyBestFirstSearchPath() {
     setupGreedyBestFirstSearchHelper();
-    while(!priorityQueue.isEmpty()){
+    while (!priorityQueue.isEmpty()) {
         pqElement = priorityQueue.dequeue();
-        if(!pqElement){
+        if (!pqElement) {
             console.log("Current no valid");
             return false;
         }
@@ -335,20 +368,20 @@ function getGreedyBestFirstSearchPath(){
 
         current.turnCellGrey();
         visited.add(current);
-        if(current === targetCell){
+        if (current === targetCell) {
             break;
         }
 
         adjacentCells = current.adjacentCells();
-        if(!adjacentCells) return;
+        if (!adjacentCells) return;
 
-        for(let i = 0; i < adjacentCells.length; i++){
+        for (let i = 0; i < adjacentCells.length; i++) {
 
             adjacentCell = adjacentCells[i];
-            if(!visited.has(adjacentCell)){
+            if (!visited.has(adjacentCell)) {
                 priorityQueue.enqueue(adjacentCell, getEuclideanDistance(adjacentCell, targetCell));
                 prev.set(adjacentCell, current);
-            }else {
+            } else {
                 visited.add(adjacentCell);
             }
 
@@ -363,11 +396,11 @@ function getGreedyBestFirstSearchPath(){
  * @param {Cell} target 
  * @param {Map} prev 
  */
-function getPath(start, target, prev){
+function getPath(start, target, prev) {
     temp = target;
-    while(temp !== start){
+    while (temp !== start) {
         temp = prev.get(temp);
-        if(!temp) return;
+        if (!temp) return;
         temp.highlightCell();
     }
 }
@@ -376,20 +409,20 @@ function getPath(start, target, prev){
  * Sets up the dijkstra's algorthim data structures needed.
  */
 
- var bidirectionalPrev;
- var biDistance;
- var biSet;
- var midPoint;
+var bidirectionalPrev;
+var biDistance;
+var biSet;
+var midPoint;
 
-function biDirectionalSetup(){
+function biDirectionalSetup() {
     distance = new Map(); prev = new Map(); set = new Set();
     biDistance = new Map(); bidirectionalPrev = new Map(); biSet = new Set();
     visited = new Set();
 
-    for(i = 0; i < grid.length; i++){
-        
+    for (i = 0; i < grid.length; i++) {
+
         cell = grid[i];
-        if(!cell.isWall){
+        if (!cell.isWall) {
             // Set all distances to the largest possible value.
             distance.set(cell, Infinity);
             biDistance.set(cell, Infinity);
@@ -408,19 +441,19 @@ function biDirectionalSetup(){
     distance.set(startCell, 0);
     biDistance.set(targetCell, 0);
 
-    currentAlgorithmObject.runFunction = function(){
-        if(biDirectionalShortestPath(set, distance, prev) || 
-            biDirectionalShortestPath(biSet, biDistance, bidirectionalPrev)){
-                this.runFunction = function() {
-                    console.log("running")
-                    getBiDirectionalShortestPath();
-                    if(midPoint){
-                        getPath(startCell, midPoint, prev);
-                        getPath(targetCell, midPoint, bidirectionalPrev);   
-                        // The mid point during get path isn't highlighted..... I will fix this later.  
-                        midPoint.highlightCell();
-                    }
-                };
+    currentAlgorithmObject.runFunction = function () {
+        if (biDirectionalShortestPath(set, distance, prev) ||
+            biDirectionalShortestPath(biSet, biDistance, bidirectionalPrev)) {
+            this.runFunction = function () {
+                console.log("running")
+                getBiDirectionalShortestPath();
+                if (midPoint) {
+                    getPath(startCell, midPoint, prev);
+                    getPath(targetCell, midPoint, bidirectionalPrev);
+                    // The mid point during get path isn't highlighted..... I will fix this later.  
+                    midPoint.highlightCell();
+                }
+            };
         }
     }
 }
@@ -428,8 +461,8 @@ function biDirectionalSetup(){
 /**
  * Performs the pathfinding from the startCell to the targetCell. 
  */
-function biDirectionalShortestPath(set, distance, prev){
-    if(set.size > 0){
+function biDirectionalShortestPath(set, distance, prev) {
+    if (set.size > 0) {
         // Get the index cell with the min distance.
         current = getCellWithMinDistance(distance, set);
 
@@ -439,13 +472,13 @@ function biDirectionalShortestPath(set, distance, prev){
          * getCellWithMinDistance() can't find a cell that is in Q and has a min value.
          * and therefore the set should be cleared. 
          */
-        if(!current){
+        if (!current) {
             return true;
-        }else current.highlightCell();
+        } else current.highlightCell();
 
         // Remove current from set Q.
-        set.forEach(function(cell){
-            if(current.equals(cell)){
+        set.forEach(function (cell) {
+            if (current.equals(cell)) {
                 set.delete(cell);
             }
         })
@@ -453,20 +486,20 @@ function biDirectionalShortestPath(set, distance, prev){
         // for each neighbor v of u...
         adjacentCells = current.adjacentCells();
 
-        if(adjacentCells){
-            for(i = 0; i < adjacentCells.length; i++){
+        if (adjacentCells) {
+            for (i = 0; i < adjacentCells.length; i++) {
                 adjacentCell = adjacentCells[i];
                 distanceToAdjacent = distance.get(current) + getEuclideanDistance(current, adjacentCell);
 
-                if(distanceToAdjacent < distance.get(adjacentCell)){
+                if (distanceToAdjacent < distance.get(adjacentCell)) {
                     distance.set(adjacentCell, distanceToAdjacent);
                     prev.set(adjacentCell, current);
                 }
             }
         }
-        if(!visited.has(current)){
+        if (!visited.has(current)) {
             visited.add(current);
-        }else {
+        } else {
             console.log("visited has current")
             midPoint = current;
             return true;
@@ -475,16 +508,16 @@ function biDirectionalShortestPath(set, distance, prev){
     return false;
 }
 
-function getBiDirectionalShortestPath(){
+function getBiDirectionalShortestPath() {
     midPoint = null;
     distance = new Map(); prev = new Map(); set = new Set();
     biDistance = new Map(); bidirectionalPrev = new Map(); biSet = new Set();
     visited = new Set();
 
-    for(i = 0; i < grid.length; i++){
-        
+    for (i = 0; i < grid.length; i++) {
+
         cell = grid[i];
-        if(!cell.isWall){
+        if (!cell.isWall) {
             // Set all distances to the largest possible value.
             distance.set(cell, Infinity);
             biDistance.set(cell, Infinity);
@@ -502,8 +535,8 @@ function getBiDirectionalShortestPath(){
     // Set the starting startCell distance to 0.
     distance.set(startCell, 0);
     biDistance.set(targetCell, 0);
-    while(set.size > 0 && biSet.size > 0){
-        
+    while (set.size > 0 && biSet.size > 0) {
+
         // Get the index cell with the min distance.
         current = getCellWithMinDistance(distance, set);
         biCurrent = getCellWithMinDistance(biDistance, biSet);
@@ -515,68 +548,68 @@ function getBiDirectionalShortestPath(){
          * getCellWithMinDistance() can't find a cell that is in Q and has a min value.
          * and therefore the set should be cleared. 
          */
-        if(!current){
+        if (!current) {
             return true;
         }
-        if(!biCurrent){
+        if (!biCurrent) {
             return true;
         }
 
-        if(distance.get(current) <= biDistance.get(biCurrent)){
+        if (distance.get(current) <= biDistance.get(biCurrent)) {
             current.turnCellGrey();
             // Remove current from set Q.
-            set.forEach(function(cell){
-                if(current.equals(cell)){
+            set.forEach(function (cell) {
+                if (current.equals(cell)) {
                     set.delete(cell);
                 }
             })
 
             adjacentCells = current.adjacentCells();
 
-            if(adjacentCells){
-                for(i = 0; i < adjacentCells.length; i++){
+            if (adjacentCells) {
+                for (i = 0; i < adjacentCells.length; i++) {
                     adjacentCell = adjacentCells[i];
                     distanceToAdjacent = distance.get(current) + getEuclideanDistance(current, adjacentCell);
-    
-                    if(distanceToAdjacent < distance.get(adjacentCell)){
+
+                    if (distanceToAdjacent < distance.get(adjacentCell)) {
                         distance.set(adjacentCell, distanceToAdjacent);
                         prev.set(adjacentCell, current);
                     }
                 }
             }
 
-            if(!visited.has(current)){
+            if (!visited.has(current)) {
                 visited.add(current);
-            }else {
+            } else {
                 midPoint = current;
                 break;
             }
 
-        }else{
+        } else {
             biCurrent.turnCellGrey();
-            biSet.forEach(function(cell){
-                if(biCurrent.equals(cell)){
+            biSet.forEach(function (cell) {
+                if (biCurrent.equals(cell)) {
                     biSet.delete(cell);
                 }
             })
 
             adjacentCells = biCurrent.adjacentCells();
 
-            if(adjacentCells){
-                for(i = 0; i < adjacentCells.length; i++){
+            if (adjacentCells) {
+                for (i = 0; i < adjacentCells.length; i++) {
                     adjacentCell = adjacentCells[i];
                     distanceToAdjacent = biDistance.get(biCurrent) + getEuclideanDistance(biCurrent, adjacentCell);
-    
-                    if(distanceToAdjacent < biDistance.get(adjacentCell)){
+
+                    if (distanceToAdjacent < biDistance.get(adjacentCell)) {
                         biDistance.set(adjacentCell, distanceToAdjacent);
                         bidirectionalPrev.set(adjacentCell, biCurrent);
                     }
                 }
             }
 
-            if(!visited.has(biCurrent)){
+            if (!visited.has(biCurrent)) {
                 visited.add(biCurrent);
-            }else {
+            } else {
                 midPoint = biCurrent;
                 break;
             }
