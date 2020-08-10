@@ -25,12 +25,18 @@ function dijkstra_setup() {
     // Set the starting startCell distance to 0.
     distance.set(startCell, 0);
 
+    foundPath = false;
+
     currentAlgorithmObject.runFunction = function () {
-        if (dijkstra_path_finding()) {
+
+        if (foundPath) {
             getDijkstraPath();
         }
+        foundPath = dijkstra_path_finding();
+
     }
 }
+
 
 /**
  * Performs the pathfinding from the startCell to the targetCell. 
@@ -40,6 +46,10 @@ function dijkstra_path_finding() {
         // Get the index cell with the min distance.
         current = getCellWithMinDistance(distance, set);
 
+        if (current === targetCell) {
+            return true;
+        }
+
         /**
          * If origin is undefined. The remaining cells in Q set is inaccessible
          * meaning its impossible for the path to even access the cell. 
@@ -48,12 +58,13 @@ function dijkstra_path_finding() {
          */
         if (!current) {
             return true;
-        } else current.highlightCell();
+        }
 
         // Remove current from set Q.
         set.forEach(function (cell) {
             if (current.equals(cell)) {
                 set.delete(cell);
+                cell.turnCellOrange();
             }
         })
 
@@ -94,6 +105,7 @@ function getDijkstraPath() {
          * getCellWithMinDistance() can't find a cell that is in Q and has a min value.
          * and therefore the set should be cleared. 
          */
+        if (current === targetCell) break;
         if (!current) {
             break;
         } else current.turnCellGrey();
@@ -116,6 +128,7 @@ function getDijkstraPath() {
                 if (distanceToAdjacent < distance.get(adjacentCell)) {
                     distance.set(adjacentCell, distanceToAdjacent);
                     prev.set(adjacentCell, current);
+                    adjacentCell.turnCellOrange();
                 }
             }
         }
@@ -404,6 +417,7 @@ function getGreedyBestFirstSearchPath() {
  * @param {Map} prev 
  */
 function getPath(start, target, prev) {
+    if (!targetCell) return;
     temp = target;
     while (temp !== start) {
         temp = prev.get(temp);
@@ -481,7 +495,7 @@ function biDirectionalShortestPath(set, distance, prev) {
          */
         if (!current) {
             return true;
-        } else current.highlightCell();
+        } else current.turnCellGrey();
 
         // Remove current from set Q.
         set.forEach(function (cell) {
@@ -501,6 +515,7 @@ function biDirectionalShortestPath(set, distance, prev) {
                 if (distanceToAdjacent < distance.get(adjacentCell)) {
                     distance.set(adjacentCell, distanceToAdjacent);
                     prev.set(adjacentCell, current);
+                    adjacentCell.turnCellOrange();
                 }
             }
         }
@@ -581,6 +596,7 @@ function getBiDirectionalShortestPath() {
                     if (distanceToAdjacent < distance.get(adjacentCell)) {
                         distance.set(adjacentCell, distanceToAdjacent);
                         prev.set(adjacentCell, current);
+                        adjacentCell.turnCellOrange();
                     }
                 }
             }
@@ -610,6 +626,8 @@ function getBiDirectionalShortestPath() {
                     if (distanceToAdjacent < biDistance.get(adjacentCell)) {
                         biDistance.set(adjacentCell, distanceToAdjacent);
                         bidirectionalPrev.set(adjacentCell, biCurrent);
+                        adjacentCell.turnCellOrange();
+
                     }
                 }
             }
